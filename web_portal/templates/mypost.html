@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-md-6 gedf-main">
+    {% if post_objects.0 is None %}
+    <h3>No posts yet... want to create one? <a href="{% url 'public_posts' %}">Create Post</a></h3>
+    {% else%}
+    {% for post in post_objects %}
+    <!--- \\\\\\\Post-->
+    <div class="card gedf-card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="mr-2">
+                        <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
+                    </div>
+                    <div class="ml-2">
+                        <div class="h5 m-0">@{{post.user}}</div>
+                        <div class="h7 text-muted">{{post.user}}</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-body">
+            <div class="text-muted h7 mb-2"><i class="fa fa-clock-o"></i>{{post.created_at}}</div>
+
+            <p class="card-text">
+                {{post.post_text}}
+            </p>
+        </div>
+        <div class="card-footer">
+            <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
+            <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a>
+            <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
+        </div>
+    </div>
+    <br/>
+
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-md-6 gedf-main">
+    {% for post in post_objects %}
+    <!--- \\\\\\\Post-->
+    <div class="card gedf-card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="mr-2">
+                        <img alt="" class="rounded-circle" src="https://picsum.photos/50/50" width="45">
+                    </div>
+                    <div class="ml-2">
+                        <div class="h5 m-0">@{{post.user}}</div>
+                        <div class="h7 text-muted">{{post.user}}</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="dropdown">
+                        <button aria-expanded="false" aria-haspopup="true" class="btn btn-link dropdown-toggle"
+                                data-toggle="dropdown" id="gedf-drop1" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                        <div aria-labelledby="gedf-drop1" class="dropdown-menu dropdown-menu-right">
+                            <div class="h6 dropdown-header"></div>
+                            <a class="dropdown-item accept" href="#" data-post-id="{{post.pk}}">Accept</a>
+                            <a class="dropdown-item reject" href="#" data-post-id="{{post.pk}}">Reject</a>
+                            <!--<a class="dropdown-item" href="#">Report</a>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-body">
+            <div class="text-muted h7 mb-2"><i class="fa fa-clock-o"></i>{{post.created_at}}</div>
+            <a class="card-link" href="#">
+                <h5 class="card-title">{{post.post_title}}</h5>
+            </a>
+
+            <p class="card-text">
+                {{post.post_text}}
+            </p>
+        </div>
+        <div class="card-footer">
+            <a class="card-link" href="#" id="like_request"><i class="fa fa-gittip"></i> Like</a>
+            <a class="card-link" href="#" id="comment_request"><i class="fa fa-comment"></i> Comment</a>
+            <a class="card-link" href="#"><i class="fa fa-mail-forward"></i> Share</a>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal" role="dialog" tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Accept Modal</h5>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="comments"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-primary" id="accept_request" type="button">Accept</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myReject" role="dialog" tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reject Modal</h5>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="comments"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-primary" id="reject_request" type="button">Reject</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myComment" role="dialog" tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Comment</h5>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>comment dialogue</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-primary" id="my_comment_post" type="button">Comment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block extrajs %}
+<script>
+
+
+$(document).ready(function(){
+    var postId;
+    $('.reject').click(function(){
+        postId = $(this).attr('data-post-id');
+        $('#myReject').modal();
+    });
+
+    $('.accept').click(function(){
+        postId = $(this).attr('data-post-id');
+        $('#myModal').modal();
+    });
+
+
+    $('#reject_request').click(function(){
+        var data = {
+            'post_id': postId,
+            'comments': $('#comments').val(),
+            'csrfmiddlewaretoken':  '{{ csrf_token }}'
+        };
+        jQuery.ajax({
+            url : '{% url "reject" %}', // the endpoint
+            type : "POST", // http method
+            data : data,
+            // handle a successful response
+            success : function(json) {
+                $('#comments').val('');
+                window.location.reload();
+            },
+            // handle a non-successful response
+            error : function(xhr,errmsg,err) {
+                alert("problem occurs");
+                <!--console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console-->
+            }
+        });
+    });
+
+    $('#accept_request').click(function(){
+        var data = {
+            'post_id': postId,
+            'comments': $('#comments').val(),
+            'csrfmiddlewaretoken':  '{{ csrf_token }}'
+        };
+        jQuery.ajax({
+            url : '{% url "approve" %}', // the endpoint
+            type : "POST", // http method
+            data : data,
+            // handle a successful response
+            success : function(json) {
+                $('#comments').val('');
+                window.location.reload();
+            },
+            // handle a non-successful response
+            error : function(xhr,errmsg,err) {
+                alert("problem occurs");
+                <!--console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console-->
+            }
+        });
+    });
+
+    $("a").click(function(){
+        if($(this).attr("id") == "like_request"){
+            alert("liked");
+        } else if($(this).attr("id") == "comment_request"){
+            $('#myComment').modal();
+        }
+    });
+
+    $('#my_comment_post').click(function(){
+        alert("commented");
+    });
+});
+
+
+
+
+</script>
+{% endblock %}
