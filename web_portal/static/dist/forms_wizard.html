@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin Dashboard HTML Template</title>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <meta content="template language" name="keywords">
+    <meta content="Tamerlan Soziev" name="author">
+    <meta content="Admin dashboard html template" name="description">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="favicon.png" rel="shortcut icon">
+    <link href="apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="bower_components/select2/dist/css/select2.min.css" rel="stylesheet">
+    <link href="bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <link href="bower_components/dropzone/dist/dropzone.css" rel="stylesheet">
+    <link href="bower_components/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="bower_components/datatables/media/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="bower_components/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="all-wrapper">
+      <div class="layout-w">
+        <div class="menu-w menu-activated-on-click">
+          <div class="logo-w">
+            <a class="logo" href="index.html"><img src="img/logo.png"><span>Clean Admin</span></a>
+            <div class="mobile-menu-trigger">
+              <div class="os-icon os-icon-hamburger-menu-1"></div>
+            </div>
+          </div>
+          <div class="menu-and-user">
+            <div class="logged-user-w">
+              <div class="avatar-w">
+                <img alt="" src="img/avatar1.jpg">
+              </div>
+              <div class="logged-user-info-w">
+                <div class="logged-user-name">
+                  Maria Gomez
+                </div>
+                <div class="logged-user-role">
+                  Administrator
+                </div>
+              </div>
+            </div>
+            <ul class="main-menu">
+              <li>
+                <a href="index.html">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-window-content"></div>
+                  </div>
+                  <span>Dashboard</span></a>
+              </li>
+              <li class="has-sub-menu">
+                <a href="#">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-donut-chart-2"></div>
+                  </div>
+                  <span>Forms</span></a>
+                <ul class="sub-menu">
+                  <li>
+                    <a href="forms.html">Regular Forms</a>
+                  </li>
+                  <li>
+                    <a href="forms_validation.html">Form Validation</a>
+                  </li>
+                  <li>
+                    <a href="forms_wizard.html">Form Wizard</a>
+                  </li>
+                  <li>
+                    <a href="forms_uploads.html">File Uploads</a>
+                  </li>
+                  <li>
+                    <a href="forms_wisiwig.html">Wisiwig Editor</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="has-sub-menu">
+                <a href="#">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-wallet-loaded"></div>
+                  </div>
+                  <span>Tables</span></a>
+                <ul class="sub-menu">
+                  <li>
+                    <a href="tables.html">Regular Tables</a>
+                  </li>
+                  <li>
+                    <a href="tables_data.html">Data Tables</a>
+                  </li>
+                  <li>
+                    <a href="tables_editable.html">Editable Tables</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="charts.html">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-delivery-box-2"></div>
+                  </div>
+                  <span>Charts</span></a>
+              </li>
+              <li class="has-sub-menu">
+                <a href="#">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-user-male-circle"></div>
+                  </div>
+                  <span>Pages</span></a>
+                <ul class="sub-menu">
+                  <li>
+                    <a href="invoice.html">Invoice</a>
+                  </li>
+                  <li>
+                    <a href="login.html">Login</a>
+                  </li>
+                  <li>
+                    <a href="register.html">Register</a>
+                  </li>
+                  <li>
+                    <a href="lock.html">Lock Screen</a>
+                  </li>
+                  <li>
+                    <a href="error_404.html">Error 404</a>
+                  </li>
+                  <li>
+                    <a href="error_500.html">Error 500</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="calendar.html">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-newspaper"></div>
+                  </div>
+                  <span>Calendar</span></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="content-w">
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="index.html">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="index.html">Products</a>
+            </li>
+            <li class="breadcrumb-item">
+              <span>Laptop with retina screen</span>
+            </li>
+          </ul>
+          <div class="content-i">
+            <div class="content-box">
+              <div class="element-wrapper">
+                <div class="element-box">
+                  <form>
+                    <div class="steps-w">
+                      <div class="step-triggers">
+                        <a class="step-trigger active" href="#stepContent1">First Step</a><a class="step-trigger" href="#stepContent2">Second Step</a><a class="step-trigger" href="#stepContent3">Third Step</a>
+                      </div>
+                      <div class="step-contents">
+                        <div class="step-content active" id="stepContent1">
+                          <div class="row">
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <label for=""> First Name</label><input class="form-control" placeholder="First Name" type="text">
+                              </div>
+                            </div>
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <label for="">Last Name</label><input class="form-control" placeholder="Last Name" type="text">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <label for=""> Date of Birth</label><input class="form-control" placeholder="First Name" type="text">
+                              </div>
+                            </div>
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <label for="">Country of Origin</label><input class="form-control" placeholder="Last Name" type="text">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for=""> States with Offices</label><select class="form-control select2" multiple="true">
+                              <option selected="true">
+                                New York
+                              </option>
+                              <option selected="true">
+                                California
+                              </option>
+                              <option>
+                                Boston
+                              </option>
+                              <option>
+                                Texas
+                              </option>
+                              <option>
+                                Colorado
+                              </option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label for=""> Regular select</label><select class="form-control">
+                              <option>
+                                Select State
+                              </option>
+                              <option>
+                                New York
+                              </option>
+                              <option>
+                                California
+                              </option>
+                              <option>
+                                Boston
+                              </option>
+                              <option>
+                                Texas
+                              </option>
+                              <option>
+                                Colorado
+                              </option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label> Example textarea</label><textarea class="form-control" rows="3"></textarea>
+                          </div>
+                          <div class="form-buttons-w text-right">
+                            <a class="btn btn-primary step-trigger-btn" href="#stepContent2"> Continue</a>
+                          </div>
+                        </div>
+                        <div class="step-content" id="stepContent2">
+                          <div class="form-group">
+                            <label for=""> Email address</label><input class="form-control" placeholder="Enter email" type="email">
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <label for=""> Password</label><input class="form-control" placeholder="Password" type="password">
+                              </div>
+                            </div>
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <label for="">Confirm Password</label><input class="form-control" placeholder="Password" type="password">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for=""> Regular select</label><select class="form-control">
+                              <option>
+                                Select State
+                              </option>
+                              <option>
+                                New York
+                              </option>
+                              <option>
+                                California
+                              </option>
+                              <option>
+                                Boston
+                              </option>
+                              <option>
+                                Texas
+                              </option>
+                              <option>
+                                Colorado
+                              </option>
+                            </select>
+                          </div>
+                          <div class="form-buttons-w text-right">
+                            <a class="btn btn-primary step-trigger-btn" href="#stepContent3"> Continue</a>
+                          </div>
+                        </div>
+                        <div class="step-content" id="stepContent3">
+                          <div class="form-group">
+                            <label for=""> Regular select</label><select class="form-control">
+                              <option>
+                                Select State
+                              </option>
+                              <option>
+                                New York
+                              </option>
+                              <option>
+                                California
+                              </option>
+                              <option>
+                                Boston
+                              </option>
+                              <option>
+                                Texas
+                              </option>
+                              <option>
+                                Colorado
+                              </option>
+                            </select>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <label for=""> Date of Birth</label><input class="form-control" placeholder="First Name" type="text">
+                              </div>
+                            </div>
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <label for="">Country of Origin</label><input class="form-control" placeholder="Last Name" type="text">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-buttons-w text-right">
+                            <button class="btn btn-primary">Submit Form</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="content-panel">
+              <div class="note-box">
+                <h5 class="note-header">
+                  Message with info
+                </h5>
+                <div class="note-content">
+                  Discharge best employed your phase each the of shine. Be met even reason consider logbook redesigns. Never a turned interfaces among asking set parameters a brief time, between to and shreds assumed experiments doing assignment. Get escape, was even and is familiarity the sleep the is didn't turn has, spare however my in presence out place may the months past, mouth.
+                </div>
+              </div>
+              <div class="element-wrapper">
+                <h6 class="element-header">
+                  Support Agents Online
+                </h6>
+                <div class="element-box-tp">
+                  <div class="profile-tile">
+                    <div class="profile-tile-box">
+                      <div class="pt-avatar-w">
+                        <img alt="" src="img/avatar1.jpg">
+                      </div>
+                      <div class="pt-user-name">
+                        Mark Parson
+                      </div>
+                    </div>
+                    <div class="profile-tile-meta">
+                      <ul>
+                        <li>
+                          Last Login:<strong>Online Now</strong>
+                        </li>
+                        <li>
+                          Tickets:<strong>12</strong>
+                        </li>
+                        <li>
+                          Response Time:<strong>2 hours</strong>
+                        </li>
+                      </ul>
+                      <div class="pt-btn">
+                        <a class="btn btn-success btn-sm" href="#">Send Message</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/chart.js/dist/Chart.min.js"></script>
+    <script src="bower_components/select2/dist/js/select2.full.min.js"></script>
+    <script src="bower_components/ckeditor/ckeditor.js"></script>
+    <script src="bower_components/bootstrap-validator/dist/validator.min.js"></script>
+    <script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="bower_components/dropzone/dist/dropzone.js"></script>
+    <script src="bower_components/editable-table/mindmup-editabletable.js"></script>
+    <script src="bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="bower_components/datatables/media/js/dataTables.bootstrap4.min.js"></script>
+    <script src="bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

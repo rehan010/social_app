@@ -1,0 +1,216 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-md-6 gedf-main">
+    <label>
+        <strong>Post Details</strong>
+    </label>
+    <br/>
+    <!--- \\\\\\\Post-->
+    <div class="card gedf-card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="mr-2">
+                        <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
+                    </div>
+                    <div class="ml-2">
+                        <div class="h5 m-0">@{{post.user}}</div>
+                        <div class="h7 text-muted">{{post.user}}</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-body">
+            <div class="text-muted h7 mb-2"><i class="fa fa-clock-o"></i>{{post.created_at}}</div>
+
+            <p class="card-text">
+                {{post.post_text}}
+            </p>
+        </div>
+        <div class="card-footer">
+            <a href="javascript:void(0);" class="card-link sentiment" data-post-id={{post.pk}} data-liked="{{liked}}">
+                <i class="fa fa-gittip"></i>
+                {% if liked == 'true' %}
+                Unlike
+                {% else %}
+                Like
+                {% endif %}
+            </a>
+            <a href="javascript:void(0);" class="card-link comment" data-post-id={{post.pk}}><i
+                    class="fa fa-comment"></i> Comment</a>
+            <a href="javascript:void(0);" class="card-link" style="display: none;"><i class="fa fa-mail-forward"></i>
+                Share</a>
+        </div>
+        <div class="card-body comments" id="comments-{{post.pk}}" style="display: none;">
+            <div class="tab-content">
+                <div class="form-group">
+                    <label class="sr-only">post</label>
+                    <textarea class="form-control" id="comment-{{post.pk}}" rows="3"
+                              placeholder="Comments..."></textarea>
+                </div>
+            </div>
+            <div class="btn-toolbar justify-content-between">
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary comment-submit" data-post-id="{{post.pk}}">Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/>
+    {% if comments.0 is None %}
+    {%else%}
+    <label>
+        <strong>Comments</strong>
+    </label>
+    <br/>
+
+    <div id="comments-container">
+        {% for c in comments %}
+        <div class="card gedf-card">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="mr-2">
+                            <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
+                        </div>
+                        <div class="ml-2">
+                            <div class="h5 m-0">@{{c.user}}</div>
+                            <div class="h7 text-muted">{{c.user}}</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-body">
+                <div class="text-muted h7 mb-2"><i class="fa fa-clock-o"></i>{{c.created_at}}</div>
+
+                <p class="card-text">
+                    {{c.comments_text}}
+                </p>
+            </div>
+        </div>
+        <br/>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+<div id="modal-success-comments" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="icon-box">
+                    <i class="material-icons">&#xE876;</i>
+                </div>
+                <h4 class="modal-title" style="padding-left: 65px;">Awesome!</h4>
+            </div>
+            <div class="modal-body">
+                <p class="text-center">Your comment is posted.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extrajs %}
+<script>
+$(document).ready(function(){
+
+    $(".sentiment").click(function(){
+        var o = $(this);
+        var liked = $(this).attr('data-liked');
+        var postId = $(this).attr('data-post-id');
+        var data = {
+            'liked': liked,
+            'csrfmiddlewaretoken':  '{{ csrf_token }}',
+            'post_id': postId
+        };
+
+        jQuery.ajax({
+            url : '{% url "post_sentiment" %}', // the endpoint
+            type : "POST", // http method
+            data : data,
+
+            // handle a successful response
+            success : function(json) {
+                if (liked == 'true'){
+                    o.attr('data-liked', 'false');
+                    o.html('<i class="fa fa-gittip"></i> Like');
+                } else {
+                    o.attr('data-liked', 'true');
+                    o.html('<i class="fa fa-gittip"></i> Unlike');
+                }
+            },
+            // handle a non-successful response
+            error : function(xhr,errmsg,err) {
+                $('#error').fadeIn(1000);
+                $('#error').fadeOut(5000);
+            }
+        });
+    });
+
+    $(".comment").click(function(){
+        $('#comments-' + $(this).attr('data-post-id')).toggle();
+    });
+
+    $('.comment-submit').click(function(){
+        var postId = $(this).attr('data-post-id');
+        var comments = $('#comment-' + postId).val();
+        if (comments == null)
+            return;
+        var data = {
+            'comments': comments,
+            'csrfmiddlewaretoken':  '{{ csrf_token }}',
+            'post_id': postId
+        };
+
+        jQuery.ajax({
+            url : '{% url "post_comment" %}', // the endpoint
+            type : "POST", // http method
+            data : data,
+
+            // handle a successful response
+            success : function(json) {
+                $('#modal-success-comments').modal();
+                $('#comment-' + postId).val('');
+                $('#comments-' + postId).hide();
+                var html = '<div class="card gedf-card">'+
+            '<div class="card-header">'+
+                '<div class="d-flex justify-content-between align-items-center">'+
+                    '<div class="d-flex justify-content-between align-items-center">'+
+                        '<div class="mr-2">'+
+                            '<img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">'+
+                        '</div>'+
+                        '<div class="ml-2">'+
+                            '<div class="h5 m-0">@{{request.user}}</div>'+
+                            '<div class="h7 text-muted">{{request.user}}</div>'+
+                        '</div>'+
+                    '</div>'+
+                '</div>'+
+            '</div>'+
+            '<div class="card-body">'+
+                '<div class="text-muted h7 mb-2"><i class="fa fa-clock-o"></i>' + new Date() +'</div>'+
+                '<p class="card-text">'+
+                   comments +
+                '</p>'+
+            '</div>'+
+        '</div>'+
+        '<br/>';
+                $('#comments-container').prepend(html);
+            },
+            // handle a non-successful response
+            error : function(xhr,errmsg,err) {
+                $('#error').fadeIn(1000);
+                $('#error').fadeOut(5000);
+            }
+        });
+    });
+});
+
+</script>
+{% endblock %}

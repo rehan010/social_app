@@ -2,6 +2,8 @@
 {% load static %}
 <html>
 <head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
           integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
           crossorigin="anonymous">
@@ -11,25 +13,292 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
           integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
           crossorigin="anonymous">
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
             integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
             crossorigin="anonymous"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
           id="bootstrap-css">
-    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>-->
 
+
+
+
+
+<style>
+
+.element-wrapper {
+    padding-bottom: 1.5rem; }
+   element-wrapper {
+  padding-bottom: 4rem; }
+  .element-wrapper .element-actions {
+    float: right;
+    position: relative;
+    z-index: 2; }
+  .element-wrapper .element-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1; }
+    .element-wrapper .element-header:after {
+      content: "";
+      background-color: #4390eb;
+      width: 22px;
+      height: 6px;
+      border-radius: 2px;
+      display: block;
+      position: absolute;
+      bottom: -3px;
+      left: 0px; }
+
+
+      .box-style, .element-box, .invoice-w, .big-error-w, .activity-boxes-w .activity-box {
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05); }
+
+.element-box, .invoice-w, .big-error-w {
+  padding: 1.5rem 2rem;
+  margin-bottom: 1rem; }
+  .element-box .os-tabs-controls, .invoice-w .os-tabs-controls, .big-error-w .os-tabs-controls {
+    margin-left: -2rem;
+    margin-right: -2rem; }
+    .element-box .os-tabs-controls .nav, .invoice-w .os-tabs-controls .nav, .big-error-w .os-tabs-controls .nav {
+      padding-left: 2rem;
+      padding-right: 2rem; }
+
+.element-box + .element-box, .invoice-w + .element-box, .big-error-w + .element-box, .element-box + .invoice-w, .invoice-w + .invoice-w, .big-error-w + .invoice-w, .element-box + .big-error-w, .invoice-w + .big-error-w, .big-error-w + .big-error-w {
+  margin-top: 2rem; }
+
+.element-box-tp .input-search-w,
+.element-box .input-search-w, .invoice-w .input-search-w, .big-error-w .input-search-w {
+  margin-bottom: 1rem; }
+
+  .element-box .os-tabs-controls, .invoice-w .os-tabs-controls, .big-error-w .os-tabs-controls, .invoice-w .os-tabs-controls, .big-error-w .os-tabs-controls {
+    display: block;
+    margin-left: -1rem;
+    margin-right: -1rem; }
+    .element-box .os-tabs-controls .nav + .nav, .invoice-w .os-tabs-controls .nav + .nav, .big-error-w .os-tabs-controls .nav + .nav, .invoice-w .os-tabs-controls .nav + .nav, .big-error-w .os-tabs-controls .nav + .nav {
+      margin-top: 1rem; }
+  .element-box.el-tablo, .el-tablo.invoice-w, .el-tablo.big-error-w {
+    text-align: center; }
+
+
+    .el-chart-w {
+  position: relative;
+  text-align: center; }
+  .el-chart-w .inside-donut-chart-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 0.63rem;
+    text-transform: uppercase;
+    z-index: 1; }
+    .el-chart-w .inside-donut-chart-label strong {
+      display: block;
+      font-size: 1.26rem; }
+    .el-chart-w .inside-donut-chart-label span {
+      display: block;
+      color: rgba(0, 0, 0, 0.4); }
+  .el-chart-w canvas {
+    position: relative;
+    z-index: 2; }
+
+.el-chart-w + .el-legend {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding-top: 1.5rem;
+  margin-top: 2rem; }
+
+  .el-chart-w + .el-legend {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding-top: 1.5rem;
+  margin-top: 2rem; }
+
+.el-legend .legend-value-w {
+  margin-bottom: 0.5rem; }
+
+.el-legend .legend-pin {
+  width: 10px;
+  height: 10px;
+  border-radius: 4px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.7rem; }
+
+.el-legend .legend-value {
+  display: inline-block;
+  vertical-align: middle; }
+
+
+
+
+    .el-tablo {
+  padding-right: 5px; }
+  .el-tablo .label {
+    display: block;
+    font-size: 0.63rem;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.4); }
+  .el-tablo .value {
+    font-size: 2.43rem;
+    font-weight: 600;
+    font-family: "Proxima Nova W01", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    letter-spacing: -1px;
+    line-height: 1.2;
+    display: inline-block;
+    vertical-align: middle; }
+  .el-tablo .trending {
+    padding: 3px 10px;
+    border-radius: 30px;
+    display: inline-block;
+    font-size: 0.72rem;
+    vertical-align: middle;
+    margin-left: 1rem; }
+    .el-tablo .trending .os-icon {
+      margin-left: 5px;
+      vertical-align: middle;
+      font-size: 14px; }
+    .el-tablo .trending span {
+      display: inline-block;
+      vertical-align: middle; }
+  .el-tablo .trending-up {
+    color: #fff;
+    background-color: #90be2e; }
+  .el-tablo .trending-down {
+    color: #fff;
+    background-color: #e65252; }
+  .el-tablo .trending-up-basic {
+    color: #90be2e;
+    padding: 0px; }
+  .el-tablo .trending-down-basic {
+    color: #e65252;
+    padding: 0px; }
+
+    .element-box .os-tabs-controls, .invoice-w .os-tabs-controls, .big-error-w .os-tabs-controls, .invoice-w .os-tabs-controls, .big-error-w .os-tabs-controls {
+    display: block;
+    margin-left: -1rem;
+    margin-right: -1rem; }
+    .element-box .os-tabs-controls .nav + .nav, .invoice-w .os-tabs-controls .nav + .nav, .big-error-w .os-tabs-controls .nav + .nav, .invoice-w .os-tabs-controls .nav + .nav, .big-error-w .os-tabs-controls .nav + .nav {
+      margin-top: 1rem; }
+  .element-box.el-tablo, .el-tablo.invoice-w, .el-tablo.big-error-w {
+    text-align: center; }
+
+    element-box, .invoice-w, .big-error-w {
+  -webkit-animation-name: fadeUp;
+          animation-name: fadeUp;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s; }
+
+   .box-style, .element-box, .invoice-w, .big-error-w, .activity-boxes-w .activity-box {
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05); }
+
+.element-box, .invoice-w, .big-error-w {
+  padding: 1.5rem 2rem;
+  margin-bottom: 1rem; }
+  .element-box .os-tabs-controls, .invoice-w .os-tabs-controls, .big-error-w .os-tabs-controls {
+    margin-left: -2rem;
+    margin-right: -2rem; }
+    .element-box .os-tabs-controls .nav, .invoice-w .os-tabs-controls .nav, .big-error-w .os-tabs-controls .nav {
+      padding-left: 2rem;
+      padding-right: 2rem; }
+
+.element-box + .element-box, .invoice-w + .element-box, .big-error-w + .element-box, .element-box + .invoice-w, .invoice-w + .invoice-w, .big-error-w + .invoice-w, .element-box + .big-error-w, .invoice-w + .big-error-w, .big-error-w + .big-error-w {
+  margin-top: 2rem; }
+
+.element-box-tp .input-search-w,
+.element-box .input-search-w, .invoice-w .input-search-w, .big-error-w .input-search-w {
+  margin-bottom: 1rem; }
+
+    .modal-confirm {
+		color: #636363;
+		width: 325px;
+	}
+	.modal-confirm .modal-content {
+		padding: 20px;
+		border-radius: 5px;
+		border: none;
+	}
+	.modal-confirm .modal-header {
+		border-bottom: none;
+        position: relative;
+	}
+	.modal-confirm h4 {
+		text-align: center;
+		font-size: 26px;
+		margin: 30px 0 -15px;
+	}
+	.modal-confirm .form-control, .modal-confirm .btn {
+		min-height: 40px;
+		border-radius: 3px;
+	}
+	.modal-confirm .close {
+        position: absolute;
+		top: -5px;
+		right: -5px;
+	}
+	.modal-confirm .modal-footer {
+		border: none;
+		text-align: center;
+		border-radius: 5px;
+		font-size: 13px;
+	}
+	.modal-confirm .icon-box {
+		color: #fff;
+		position: absolute;
+		margin: 0 auto;
+		left: 0;
+		right: 0;
+		top: -70px;
+		width: 95px;
+		height: 95px;
+		border-radius: 50%;
+		z-index: 9;
+		background: #82ce34;
+		padding: 15px;
+		text-align: center;
+		box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+	}
+	.modal-confirm .icon-box i {
+		font-size: 58px;
+		position: relative;
+		top: 3px;
+	}
+	.modal-confirm.modal-dialog {
+		margin-top: 80px;
+	}
+    .modal-confirm .btn {
+        color: #fff;
+        border-radius: 4px;
+		background: #82ce34;
+		text-decoration: none;
+		transition: all 0.4s;
+        line-height: normal;
+        border: none;
+    }
+	.modal-confirm .btn:hover, .modal-confirm .btn:focus {
+		background: #6fb32b;
+		outline: none;
+	}
+	.trigger-btn {
+		display: inline-block;
+		margin: 100px auto;
+	}
+</style>
 </head>
 
 <body>
 {% block header %}
-<nav class="navbar navbar-light bg-white">
+<nav class="navbar navbar-light" style="background: #082448; margin: 30px;">
     <div class="row">
         <div class="col-sm-6">
-            <a href="#" class="navbar-brand"><img src="{% static 'images/smollan.png' %}" alt="something" height="120"
-                                                  width="120"></a>
-
+            <a href="#" class="navbar-brand"><img src="{% static 'images/smollan-header-logo.jpeg' %}"
+                                                  alt="smollan" height="100px" width="320px"
+            ></a>
         </div>
     </div>
 </nav>
@@ -37,7 +306,7 @@
 {% endblock %}
 {% block main_content %}
 {% if user.is_authenticated %}
-<div class="container-fluid gedf-wrapper">
+<div class="container-fluid gedf-wrapper" style="margin: 0px;">
     <div class="row">
         {% include "side_bar.html" %}
         {% block content %}
@@ -45,8 +314,10 @@
     </div>
 </div>
 {% else %}
-<h1>You are required to login!</h1>
-<a href="{% url 'login' %}"><i class="fa fa-sign-out pull-right"></i> Login</a>
+<div class="alert alert-dark" role="alert">
+    You are required to login!
+    <a href="{% url 'login' %}"><i class="fa fa-sign-out pull-right"></i> Login</a>
+</div>
 {% endif %}
 {% endblock %}
 {% block extrajs %}

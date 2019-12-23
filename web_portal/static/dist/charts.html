@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin Dashboard HTML Template</title>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <meta content="template language" name="keywords">
+    <meta content="Tamerlan Soziev" name="author">
+    <meta content="Admin dashboard html template" name="description">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="favicon.png" rel="shortcut icon">
+    <link href="apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="bower_components/select2/dist/css/select2.min.css" rel="stylesheet">
+    <link href="bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <link href="bower_components/dropzone/dist/dropzone.css" rel="stylesheet">
+    <link href="bower_components/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="bower_components/datatables/media/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="bower_components/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="all-wrapper">
+      <div class="layout-w">
+        <div class="menu-w menu-activated-on-click">
+          <div class="logo-w">
+            <a class="logo" href="index.html"><img src="img/logo.png"><span>Clean Admin</span></a>
+            <div class="mobile-menu-trigger">
+              <div class="os-icon os-icon-hamburger-menu-1"></div>
+            </div>
+          </div>
+          <div class="menu-and-user">
+            <div class="logged-user-w">
+              <div class="avatar-w">
+                <img alt="" src="img/avatar1.jpg">
+              </div>
+              <div class="logged-user-info-w">
+                <div class="logged-user-name">
+                  Maria Gomez
+                </div>
+                <div class="logged-user-role">
+                  Administrator
+                </div>
+              </div>
+            </div>
+            <ul class="main-menu">
+              <li>
+                <a href="index.html">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-window-content"></div>
+                  </div>
+                  <span>Dashboard</span></a>
+              </li>
+              <li class="has-sub-menu">
+                <a href="#">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-donut-chart-2"></div>
+                  </div>
+                  <span>Forms</span></a>
+                <ul class="sub-menu">
+                  <li>
+                    <a href="forms.html">Regular Forms</a>
+                  </li>
+                  <li>
+                    <a href="forms_validation.html">Form Validation</a>
+                  </li>
+                  <li>
+                    <a href="forms_wizard.html">Form Wizard</a>
+                  </li>
+                  <li>
+                    <a href="forms_uploads.html">File Uploads</a>
+                  </li>
+                  <li>
+                    <a href="forms_wisiwig.html">Wisiwig Editor</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="has-sub-menu">
+                <a href="#">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-wallet-loaded"></div>
+                  </div>
+                  <span>Tables</span></a>
+                <ul class="sub-menu">
+                  <li>
+                    <a href="tables.html">Regular Tables</a>
+                  </li>
+                  <li>
+                    <a href="tables_data.html">Data Tables</a>
+                  </li>
+                  <li>
+                    <a href="tables_editable.html">Editable Tables</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="charts.html">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-delivery-box-2"></div>
+                  </div>
+                  <span>Charts</span></a>
+              </li>
+              <li class="has-sub-menu">
+                <a href="#">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-user-male-circle"></div>
+                  </div>
+                  <span>Pages</span></a>
+                <ul class="sub-menu">
+                  <li>
+                    <a href="invoice.html">Invoice</a>
+                  </li>
+                  <li>
+                    <a href="login.html">Login</a>
+                  </li>
+                  <li>
+                    <a href="register.html">Register</a>
+                  </li>
+                  <li>
+                    <a href="lock.html">Lock Screen</a>
+                  </li>
+                  <li>
+                    <a href="error_404.html">Error 404</a>
+                  </li>
+                  <li>
+                    <a href="error_500.html">Error 500</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="calendar.html">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-newspaper"></div>
+                  </div>
+                  <span>Calendar</span></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="content-w">
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="index.html">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="index.html">Products</a>
+            </li>
+            <li class="breadcrumb-item">
+              <span>Laptop with retina screen</span>
+            </li>
+          </ul>
+          <div class="content-i">
+            <div class="content-box">
+              <div class="row">
+                <div class="col-sm-8">
+                  <div class="element-wrapper">
+                    <h6 class="element-header">
+                      Bar Charts
+                    </h6>
+                    <div class="element-box">
+                      <h5 class="form-header">
+                        Powered by Chart.js
+                      </h5>
+                      <div class="form-desc">
+                        Simple yet flexible JavaScript charting for designers & developers. <a href="http://www.chartjs.org/" target="_blank">Learn More about Chart.js</a>
+                      </div>
+                      <div class="el-chart-w">
+                        <canvas height="145" id="barChart1" width="300"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="element-wrapper">
+                    <h6 class="element-header">
+                      Small Infos
+                    </h6>
+                    <div class="element-box el-tablo">
+                      <div class="label">
+                        Products Sold
+                      </div>
+                      <div class="value">
+                        574
+                      </div>
+                      <div class="trending trending-up">
+                        <span>12%</span><i class="os-icon os-icon-arrow-up2"></i>
+                      </div>
+                    </div>
+                    <div class="element-box el-tablo">
+                      <div class="label">
+                        New Customers
+                      </div>
+                      <div class="value">
+                        12
+                      </div>
+                      <div class="trending trending-down-basic">
+                        <span>9%</span><i class="os-icon os-icon-graph-down"></i>
+                      </div>
+                    </div>
+                    <div class="element-box el-tablo">
+                      <div class="label">
+                        Gross Profit
+                      </div>
+                      <div class="value">
+                        $2,507
+                      </div>
+                      <div class="trending trending-down-basic">
+                        <span>12%</span><i class="os-icon os-icon-arrow-2-down"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="element-wrapper">
+                <h6 class="element-header">
+                  Line Chart with Tabs
+                </h6>
+                <div class="element-box">
+                  <div class="os-tabs-w">
+                    <div class="os-tabs-controls">
+                      <ul class="nav nav-tabs smaller">
+                        <li class="nav-item">
+                          <a class="nav-link active" data-toggle="tab" href="#tab_overview">Overview</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" data-toggle="tab" href="#tab_sales">Sales</a>
+                        </li>
+                      </ul>
+                      <ul class="nav nav-pills smaller">
+                        <li class="nav-item">
+                          <a class="nav-link" data-toggle="tab" href="#">Today</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link active" data-toggle="tab" href="#">7 Days</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" data-toggle="tab" href="#">14 Days</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" data-toggle="tab" href="#">Last Month</a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="tab-content">
+                      <div class="tab-pane active" id="tab_overview">
+                        <div class="el-tablo">
+                          <div class="label">
+                            Unique Visitors
+                          </div>
+                          <div class="value">
+                            12,537
+                          </div>
+                        </div>
+                        <div class="el-chart-w">
+                          <canvas height="150px" id="lineChart" width="600px"></canvas>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="tab_sales"></div>
+                      <div class="tab-pane" id="tab_conversion"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="content-panel">
+              <div class="element-wrapper">
+                <h6 class="element-header">
+                  Charts in sidebar
+                </h6>
+                <div class="element-box">
+                  <h5 class="form-header">
+                    Doughnut Chart
+                  </h5>
+                  <div class="form-desc">
+                    Pie and doughnut charts are probably the most commonly used charts there are. <a href="http://www.chartjs.org/" target="_blank">Learn More about Chart.js</a>
+                  </div>
+                  <div class="el-chart-w">
+                    <canvas height="160" id="donutChart" width="160"></canvas>
+                    <div class="inside-donut-chart-label">
+                      <strong>142</strong><span>Total Orders</span>
+                    </div>
+                  </div>
+                  <div class="el-legend">
+                    <div class="legend-value-w">
+                      <div class="legend-pin" style="background-color: #6896f9;"></div>
+                      <div class="legend-value">
+                        Processed
+                      </div>
+                    </div>
+                    <div class="legend-value-w">
+                      <div class="legend-pin" style="background-color: #85c751;"></div>
+                      <div class="legend-value">
+                        Cancelled
+                      </div>
+                    </div>
+                    <div class="legend-value-w">
+                      <div class="legend-pin" style="background-color: #d97b70;"></div>
+                      <div class="legend-value">
+                        Pending
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="element-wrapper">
+                <div class="element-box">
+                  <h5 class="form-header">
+                    Pie Chart
+                  </h5>
+                  <div class="form-desc">
+                    Pie and doughnut charts are probably the most commonly used charts there are. <a href="http://www.chartjs.org/" target="_blank">Learn More about Chart.js</a>
+                  </div>
+                  <div class="el-chart-w">
+                    <canvas height="150px" id="pieChart1" width="150px"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/chart.js/dist/Chart.min.js"></script>
+    <script src="bower_components/select2/dist/js/select2.full.min.js"></script>
+    <script src="bower_components/ckeditor/ckeditor.js"></script>
+    <script src="bower_components/bootstrap-validator/dist/validator.min.js"></script>
+    <script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="bower_components/dropzone/dist/dropzone.js"></script>
+    <script src="bower_components/editable-table/mindmup-editabletable.js"></script>
+    <script src="bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="bower_components/datatables/media/js/dataTables.bootstrap4.min.js"></script>
+    <script src="bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

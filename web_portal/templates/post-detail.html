@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-md-6 gedf-main">
+    <label>
+        <strong>Post Details</strong>
+    </label>
+    <br/>
+
+    <!--- \\\\\\\Post-->
+    <div class="card gedf-card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="mr-2">
+                        <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
+                    </div>
+                    <div class="ml-2">
+                        <div class="h5 m-0">@{{post.user}}</div>
+                        <div class="h7 text-muted">{{post.user}}</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-body">
+            <div class="text-muted h7 mb-2"><i class="fa fa-clock-o"></i>{{post.created_at}}</div>
+
+            <p class="card-text">
+                {{post.post_text}}
+            </p>
+        </div>
+    </div>
+    <br/>
+    {% if logs.0 is None %}
+    {%else%}
+    <label>
+        <strong>Activity Log</strong>
+    </label>
+    <br/>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Status</th>
+            <th scope="col">Actor</th>
+            <th scope="col">Timestamp</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for log in logs %}
+        <tr>
+            <th scope="row">1</th>
+            <td>{{log.status}}</td>
+            <td>{{log.user}}</td>
+            <td>{{log.created_at}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% endif %}
+</div>
+{% endblock %}

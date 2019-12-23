@@ -2,6 +2,16 @@
 
 {% block content %}
 <div class="col-md-6 gedf-main">
+
+    <label>
+        <strong>My Tasks</strong>
+    </label>
+    <br/>
+    {% if post_objects.0 is None %}
+        <div class="alert alert-primary" role="alert">
+            No tasks in your bucket... want to explore the posts? Move to <a href="{% url 'public_posts' %}">Discussions</a>
+        </div>
+    {% else%}
     {% for post in post_objects %}
     <!--- \\\\\\\Post-->
     <div class="card gedf-card">
@@ -43,7 +53,7 @@
                 {{post.post_text}}
             </p>
         </div>
-        <div class="card-footer">
+        <div class="card-footer" style="display: none;">
             <a class="card-link" href="#" id="like_request"><i class="fa fa-gittip"></i> Like</a>
             <a class="card-link" href="#" id="comment_request"><i class="fa fa-comment"></i> Comment</a>
             <a class="card-link" href="#"><i class="fa fa-mail-forward"></i> Share</a>
@@ -60,7 +70,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <textarea id="comments"></textarea>
+                    <div class="form-group">
+                        <label class="sr-only" for="message">post</label>
+                        <textarea id="accept_comments" class="form-control" id="message" rows="3"
+                                  placeholder="What are you thinking?"></textarea>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
@@ -80,7 +94,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <textarea id="comments"></textarea>
+                    <textarea id="reject_comments" class="form-control" id="message" rows="3"
+                                  placeholder="What are you thinking?"></textarea>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
@@ -112,6 +127,7 @@
 
     {% endfor %}
 </div>
+{% endif %}
 {% endblock %}
 
 {% block extrajs %}
@@ -134,7 +150,7 @@ $(document).ready(function(){
     $('#reject_request').click(function(){
         var data = {
             'post_id': postId,
-            'comments': $('#comments').val(),
+            'comments': $('#reject_comments').val(),
             'csrfmiddlewaretoken':  '{{ csrf_token }}'
         };
         jQuery.ajax({
@@ -143,7 +159,7 @@ $(document).ready(function(){
             data : data,
             // handle a successful response
             success : function(json) {
-                $('#comments').val('');
+                $('#reject_comments').val('');
                 window.location.reload();
             },
             // handle a non-successful response
@@ -157,7 +173,7 @@ $(document).ready(function(){
     $('#accept_request').click(function(){
         var data = {
             'post_id': postId,
-            'comments': $('#comments').val(),
+            'comments': $('#accept_comments').val(),
             'csrfmiddlewaretoken':  '{{ csrf_token }}'
         };
         jQuery.ajax({
@@ -166,7 +182,7 @@ $(document).ready(function(){
             data : data,
             // handle a successful response
             success : function(json) {
-                $('#comments').val('');
+                $('#accept_comments').val('');
                 window.location.reload();
             },
             // handle a non-successful response

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+          crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+          crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
+          id="bootstrap-css">
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>-->
+
+    <head>
+        <title>Socio Smollan</title>
+        <meta charset="utf-8">
+        <meta content="ie=edge" http-equiv="x-ua-compatible">
+        <meta content="template language" name="keywords">
+        <meta content="Tamerlan Soziev" name="author">
+        <meta content="Admin dashboard html template" name="description">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+        <link href="apple-touch-icon.png" rel="apple-touch-icon">
+        <link href="{% static 'dist/bower_components/select2/dist/css/select2.min.css' %}" rel="stylesheet">
+        <link href="{% static 'dist/bower_components/bootstrap-daterangepicker/daterangepicker.css' %}"
+              rel="stylesheet">
+        <link href="{% static 'dist/bower_components/dropzone/dist/dropzone.css' %}" rel="stylesheet">
+        <link href="{% static 'dist/bower_components/datatables/media/css/jquery.dataTables.min.css' %}"
+              rel="stylesheet">
+        <link href="{% static 'dist/bower_components/datatables/media/css/dataTables.bootstrap4.min.css' %}"
+              rel="stylesheet">
+        <link href="{% static 'dist/bower_components/fullcalendar/dist/fullcalendar.min.css' %}" rel="stylesheet">
+        <link href="{% static 'dist/css/main.css' %}" rel="stylesheet">
+    </head>
+
+<body>
+{% block header %}
+<!--<nav class="navbar navbar-light" style="background: #082448; margin: 20px;">
+    <div class="row">
+        <div class="col-sm-6">
+            <a href="#" class="navbar-brand"><img src="{% static 'images/smollan-header-logo.jpeg' %}"
+                                                  alt="something"
+            ></a>
+        </div>
+    </div>
+</nav>-->
+<!-- header-container end -->
+{% endblock %}
+{% block main_content %}
+<div class="all-wrapper">
+    <div class="layout-w">
+        <div class="menu-w menu-activated-on-click">
+            <div class="logo-w">
+                <a class="logo" href="index.html"><img src="{% static 'favicon.ico' %}"><span>Socio Smollan</span></a>
+                <div class="mobile-menu-trigger">
+                    <div class="os-icon os-icon-hamburger-menu-1"></div>
+                </div>
+            </div>
+            <div class="menu-and-user">
+                <div class="logged-user-w">
+                    <div class="avatar-w">
+                        <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
+                    </div>
+                    <div class="logged-user-info-w">
+                        <div class="logged-user-name">
+                            {{user.username}}
+                        </div>
+                        <div class="logged-user-role">
+                            {{user.type}}
+                        </div>
+                    </div>
+                </div>
+                <ul class="main-menu">
+                    <li>
+                        <a href="{% url 'public_posts' %}">
+                            <div class="icon-w">
+                                <div class="os-icon os-icon-window-content"></div>
+                            </div>
+                            <span>Smollan Board</span></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'myposts' %}">
+                            <div class="icon-w">
+                                <div class="os-icon os-icon-delivery-box-2"></div>
+                            </div>
+                            <span>My Posts</span></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'mytasks' %}">
+                            <div class="icon-w">
+                                <div class="os-icon os-icon-user-male-circle"></div>
+                            </div>
+                            <span>My Tasks</span></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'logout' %}">
+                            <div class="icon-w">
+                                <div class="os-icon os-icon-newspaper"></div>
+                            </div>
+                            <span>Logout</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}
+{% block extrajs %}
+{% endblock %}
+<script src="{% static 'dist/bower_components/jquery/dist/jquery.min.js' %}"></script>
+<script src="{% static 'dist/bower_components/moment/moment.js' %}"></script>
+<script src="{% static 'dist/bower_components/chart.js' %}/dist/Chart.min.js' %}"></script>
+<script src="{% static 'dist/bower_components/select2/dist/js/select2.full.min.js' %}"></script>
+<script src="{% static 'dist/bower_components/ckeditor/ckeditor.js' %}"></script>
+<script src="{% static 'dist/bower_components/bootstrap-validator/dist/validator.min.js' %}"></script>
+<script src="{% static 'dist/bower_components/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
+<script src="{% static 'dist/bower_components/dropzone/dist/dropzone.js' %}"></script>
+<script src="{% static 'dist/bower_components/editable-table/mindmup-editabletable.js' %}"></script>
+<script src="{% static 'dist/bower_components/datatables/media/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'dist/bower_components/datatables/media/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'dist/bower_components/fullcalendar/dist/fullcalendar.min.js' %}"></script>
+<script src="{% static 'dist/js/main.js' %}"></script>
+</body>
+</html>

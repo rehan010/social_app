@@ -1,15 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from easy_cression import settings
+
 
 class User(AbstractUser):
     TYPE_CHOICES = (
-            ('1', 'BA'),
-            ('2', 'Sup'),
-            ('3', 'Man'),
-            ('4', 'Exec')
-        )
+        ('1', 'BA'),
+        ('2', 'Sup'),
+        ('3', 'Man'),
+        ('4', 'Exec')
+    )
     type = models.CharField(max_length=10, choices=TYPE_CHOICES, default='BA')
-    parent = models.ForeignKey('self',on_delete=models.CASCADE, null=True, blank=True)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+
 
 class Post(models.Model):
     TYPE_CHOICES = (
@@ -22,11 +25,12 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post_title = models.CharField(max_length=100)
     post_text = models.TextField()
-    image = models.ImageField(default=0)
+    image = models.ImageField(default=None, upload_to=u'post_images/%Y/%m/%d', null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    current_actor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='current_actor',default=0)
-    last_actor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='last_actor',default=0)
+    current_actor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='current_actor', default=0,
+                                      null=True)
+    last_actor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='last_actor', default=0, null=True)
     current_status = models.CharField(max_length=10, choices=TYPE_CHOICES, default='Initiated')
 
     class Meta:
@@ -92,4 +96,3 @@ class CommentLike(models.Model):
         db_table = 'comment_like'
         verbose_name = 'comment like'
         verbose_name_plural = 'comment like'
-
