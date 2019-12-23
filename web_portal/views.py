@@ -48,9 +48,11 @@ class MyTaskView(ListView):
         context['length_post'] = len(Post.objects.filter(user=self.request.user).all())
         context['length_task'] = len(Post.objects.filter(current_actor=self.request.user).all())
         all_post = len(Post.objects.all())
-        print(all_post)
-        my_contrib = (context['length_post'] / all_post) * 100
-        avg_post_per_user = all_post / len(User.objects.all())
+        my_contrib = 0
+        avg_post_per_user = 0
+        if all_post > 0:
+            my_contrib = (context['length_post'] / all_post) * 100
+            avg_post_per_user = all_post / len(User.objects.all())
         context['my_contrib'] = my_contrib
         context['avg_post_per_user'] = avg_post_per_user
 
