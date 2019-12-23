@@ -160,28 +160,34 @@
 <div class="col-md-3" style="margin-top: 35px;">
 <div class="element-box el-tablo">
     <div class="label">
-                              MY CONTRIBUTION
+                              MY ACTIVITY/AVERAGE ACTIVITY
     </div>
     <div class="value">
-                              {{my_contrib}}
+                              {{my_contrib}}/{{avg_post_per_user}}
     </div>
+    {%if my_contrib > avg_post_per_user%}
     <div class="trending trending-up">
         <span>12%</span><i class="os-icon os-icon-arrow-up2"></i>
     </div>
+    {%else%}
+    <div class="trending trending-down-basic">
+                              <span>12%</span><i class="os-icon os-icon-arrow-2-down"></i>
+                            </div>
+    {%endif%}
 
 </div>
 
-    <div class="element-box el-tablo">
-                            <div class="label">
-                              AVERAGE POST PER USER
-                            </div>
-                            <div class="value">
-                               {{avg_post_per_user}}
-                            </div>
-                            <div class="trending trending-down-basic">
-                              <span>12%</span><i class="os-icon os-icon-arrow-2-down"></i>
-                            </div>
-                          </div>
+<!--    <div class="element-box el-tablo">-->
+<!--                            <div class="label">-->
+<!--                              AVERAGE POST PER USER-->
+<!--                            </div>-->
+<!--                            <div class="value">-->
+<!--                               {{avg_post_per_user}}-->
+<!--                            </div>-->
+<!--                            <div class="trending trending-down-basic">-->
+<!--                              <span>12%</span><i class="os-icon os-icon-arrow-2-down"></i>-->
+<!--                            </div>-->
+<!--                          </div>-->
 
 
     <div class="element-wrapper">
