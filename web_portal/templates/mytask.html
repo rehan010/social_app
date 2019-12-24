@@ -8,9 +8,9 @@
     </label>
     <br/>
     {% if post_objects.0 is None %}
-        <div class="alert alert-primary" role="alert">
-            No tasks in your bucket... want to explore the posts? Move to <a href="{% url 'public_posts' %}">Discussions</a>
-        </div>
+    <div class="alert alert-primary" role="alert">
+        No tasks in your bucket... want to explore the posts? Move to <a href="{% url 'public_posts' %}">Discussions</a>
+    </div>
     {% else%}
     {% for post in post_objects %}
     <!--- \\\\\\\Post-->
@@ -52,6 +52,9 @@
             <p class="card-text">
                 {{post.post_text}}
             </p>
+            {% if post.image != '' %}
+            <img style="margin-top: 10px;" src="{{post.image.url}}" alt="" height="250" width="570"/>
+            {% endif %}
         </div>
         <div class="card-footer" style="display: none;">
             <a class="card-link" href="#" id="like_request"><i class="fa fa-gittip"></i> Like</a>
@@ -95,7 +98,7 @@
                 </div>
                 <div class="modal-body">
                     <textarea id="reject_comments" class="form-control" id="message" rows="3"
-                                  placeholder="What are you thinking?"></textarea>
+                              placeholder="What are you thinking?"></textarea>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
@@ -205,6 +208,7 @@ $(document).ready(function(){
         alert("commented");
     });
 });
+
 
 
 
