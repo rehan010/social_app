@@ -7,6 +7,7 @@ urlpatterns = [
 
     # create user with sign up form
     path('signup/', SignUpView.as_view(), name='signup'),
+    # path('signup/', signup, name='signup'),
     # Login
     path('login/', auth_views.LoginView.as_view(redirect_authenticated_user=True, template_name='login_new.html'),
          name='login'),

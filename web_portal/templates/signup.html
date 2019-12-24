@@ -1,6 +1,217 @@
+<!DOCTYPE html>
+{% load  static %}
+{% load crispy_forms_tags %}
+<html>
+<head>
+    <title>Socio Smollan</title>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <meta content="template language" name="keywords">
+    <meta content="Tamerlan Soziev" name="author">
+    <meta content="Admin dashboard html template" name="description">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+    <link href="apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="{% static 'dist/bower_components/select2/dist/css/select2.min.css' %}" rel="stylesheet">
+    <link href="{% static 'dist/bower_components/bootstrap-daterangepicker/daterangepicker.css' %}" rel="stylesheet">
+    <link href="{% static 'dist/bower_components/dropzone/dist/dropzone.css' %}" rel="stylesheet">
+    <link href="{% static 'dist/bower_components/datatables/media/css/jquery.dataTables.min.css' %}" rel="stylesheet">
+    <link href="{% static 'dist/bower_components/datatables/media/css/dataTables.bootstrap4.min.css' %}"
+          rel="stylesheet">
+    <link href="{% static 'dist/bower_components/fullcalendar/dist/fullcalendar.min.css' %}" rel="stylesheet">
+    <link href="{% static 'dist/css/main.css' %}" rel="stylesheet">
+</head>
 
-<form method="post"  autocomplete="off">
-        {% csrf_token %}
-        {{ form.as_p }}
-    <button type="submit">Submit</button>
- </form>
+<!--<body class="auth-wrapper">-->
+<!--<div class="all-wrapper with-pattern">-->
+<!--    <div class="auth-box-w">-->
+<!--        <div class="logo-w">-->
+<!--            <a href="/"><img alt="" src="{% static 'favicon.ico' %} " height="70"-->
+<!--                             width="70"></a>-->
+<!--        </div>-->
+<!--        <h4 class="auth-header">-->
+<!--            SignUp Form-->
+<!--        </h4>-->
+<!--<form method="post"  autocomplete="off">-->
+
+
+<!--    <div>-->
+<!--        <input type="text" class="form-control" name="{{form.username.name}}" id="{{form.username.name}}"-->
+<!--                                   value="{{form.username.value|default_if_none:''}}"-->
+<!--                                   placeholder="Username"-->
+<!--                                   required/>-->
+<!--    </div>-->
+
+<!--    <div>-->
+<!--        <input type="text" class="form-control" name="{{form.first_name.name}}" id="{{form.first_name.name}}"-->
+<!--                                  value="{{form.first_name.value|default_if_none:''}}"-->
+<!--                                   placeholder="First Name"-->
+<!--                                   required/>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <input type="text" class="form-control" name="{{form.last_name.name}}" id="{{form.last_name.name}}"-->
+<!--                                   value="{{form.last_name.value|default_if_none:''}}"-->
+<!--                                   placeholder="Last Name"-->
+<!--                                   required/>-->
+<!--    </div>-->
+
+<!--    <div>-->
+<!--        <input type="email" class="form-control" name="{{form.email.name}}" id="{{form.email.name}}"-->
+<!--                                   value="{{form.email.value|default_if_none:''}}"-->
+<!--                                   placeholder="Email"-->
+<!--                                   required/>-->
+<!--    </div>-->
+
+<!--    <div>-->
+<!--        <select class="form-control"  name="{{form.type.name}}" id="id_type" >-->
+<!--<option value="Executive">Executive</option>-->
+<!--<option value="Manager">Manager</option>-->
+<!--<option value="Supervisor">Supervisor</option>-->
+<!--<option value="BA">BA</option>-->
+<!--        </select>-->
+
+<!--    </div>-->
+<!--    <div>-->
+<!--        <select class="form-control" id="id_parent" name="{{form.parent.name}}"  >-->
+
+<!--            {%for p in parent%}-->
+<!--                <option value="{{p.pk}}">{{p}}</option>-->
+<!--            {%endfor%}-->
+
+<!--        </select>-->
+
+<!--    </div>-->
+
+
+<!--    <div>-->
+<!--        <input type="password" class="form-control"  name="{{form.password1.name}}" value="{{form.password1.value|default_if_none:''}}" id="id_password1"-->
+<!--                                   placeholder="Password"-->
+<!--                                   required/>-->
+<!--    </div>-->
+
+<!--    <div>-->
+<!--        <input type="password" class="form-control"  name="{{form.password2.name}}" value="{{form.password2.value|default_if_none:''}}" id="id_password2"-->
+<!--                                   placeholder="Password"-->
+<!--                                   required/>-->
+<!--    </div>-->
+
+
+<!--    <div class="buttons-w">-->
+
+<!--    <button class="btn btn-primary" type="submit">Submit</button>-->
+<!--    </div>-->
+<!-- </form>-->
+
+<!--<form method="post">-->
+<!--    {% csrf_token %}-->
+<!--    <div class="form-row">-->
+<!--      <div class="form-group col-md-12 mb-0">-->
+<!--        {{ form.email|as_crispy_field }}-->
+<!--      </div>-->
+<!--      <div class="form-group col-md-12 mb-0">-->
+<!--        {{ form.password1|as_crispy_field }}-->
+<!--      </div>-->
+<!--        <div>-->
+<!--        {{ form.type|as_crispy_field }}-->
+<!--      </div>-->
+
+<!--         <div>-->
+<!--        {{ form.parent|as_crispy_field }}-->
+<!--      </div>-->
+
+<!--    </div>-->
+
+<!--    <button type="submit" class="btn btn-primary">Sign in</button>-->
+<!--  </form>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--</body>-->
+
+<div class="all-wrapper with-pattern">
+    <div class="auth-box-w wider">
+        <div class="logo-w">
+            <a href="/"><img alt="" src="{% static 'favicon.ico' %} " height="70" width="70"></a>
+
+        </div>
+        <h4 class="auth-header">
+            Create new account
+        </h4>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for=""> First Name</label><input name="first_name" id="id_first_name" class="form-control"
+                                                        placeholder="first name" type="text">
+                <div class="pre-icon os-icon os-icon-user-male-circle"></div>
+            </div>
+            <div class="form-group">
+                <label for=""> Last Name</label><input name="last_name" id="id_last_name" class="form-control"
+                                                       placeholder="last name" type="text">
+                <div class="pre-icon os-icon os-icon-user-male-circle"></div>
+            </div>
+            <div class="form-group">
+                <label for=""> Email address</label><input name="email" id="id_email" class="form-control"
+                                                           placeholder="Enter email" type="text">
+                <div class="pre-icon os-icon os-icon-email-2-at2"></div>
+            </div>
+
+            <div class="form-group">
+                <label for=""> Employee Type</label>
+
+                <select class="form-control" name="type" id="id_type">
+                    <option value="4">Executive</option>
+                    <option value="3">Manager</option>
+                    <option value="2">Supervisor</option>
+                    <option value="1">BA</option>
+
+
+                </select>
+                <div class="pre-icon os-icon os-icon-user-male-circle"></div>
+            </div>
+            <div class="form-group">
+                <label for="">Employee Parent</label>
+
+                <select class="form-control" name="parent" id="id_parent">
+                    <option value="">-</option>
+                    {% for t in type%}
+                    <option value="{{t.pk}}">{{t}}</option>
+                    {% endfor%}
+                </select>
+                <div class="pre-icon os-icon os-icon-user-male-circle"></div>
+            </div>
+
+            <div class="form-group">
+                <label for=""> User Name</label><input name="username" id="id_username" class="form-control"
+                                                       placeholder="Enter username" type="text">
+                <div class="pre-icon os-icon os-icon-user-male-circle"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for=""> Password</label><input name="password1" id="id_password1" class="form-control"
+                                                              placeholder="Password" type="password">
+                        <div class="pre-icon os-icon os-icon-fingerprint"></div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="">Confirm Password</label><input name="password2" id="id_password2"
+                                                                     class="form-control" placeholder="Password"
+                                                                     type="password">
+                    </div>
+                </div>
+            </div>
+            <div class="buttons-w">
+                <button type="submit" class="btn btn-primary">Register Now</button>
+            </div>
+        </form>
+    </div>
+</div>
+</html>
+<script>
+    var select_value;
+        function type_select(value){
+        select_value=value;
+   }
+</script>

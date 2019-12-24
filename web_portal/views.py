@@ -7,6 +7,8 @@ import json
 from django.contrib.auth.mixins import LoginRequiredMixin
 import time
 from easy_cression import settings
+from django.shortcuts import redirect, render
+from django.db.models import Q
 
 
 # Create your views here.
@@ -16,6 +18,12 @@ class SignUpView(CreateView):
     model = User
     success_url = reverse_lazy('login')
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['type'] = User.objects.all()
+
+        return context
+
 
 class PublicPostView(ListView, LoginRequiredMixin):
     template_name = 'index.html'
@@ -24,17 +32,33 @@ class PublicPostView(ListView, LoginRequiredMixin):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context['post_objects'] = Post.objects.filter(current_status='Closed').order_by('-created_at').all()
-        context['length_post'] = len(Post.objects.filter(user=self.request.user).all())
+        post_count = len(Post.objects.filter(user=self.request.user).all())
+        context['length_post'] = post_count
         context['length_task'] = len(Post.objects.filter(current_actor=self.request.user).all())
         context['comment_objects'] = Comment.objects.all()
         all_post = len(Post.objects.all())
-        my_contrib=0
-        avg_post_per_user=0
+        my_contrib = 0
+        avg_post_per_user = 0
+        percent = 0
+
         if all_post > 0:
-            my_contrib = (context['length_post'] / all_post) * 100
+            my_contrib = post_count
             avg_post_per_user = all_post / len(User.objects.all())
+            percent = round((abs((my_contrib - avg_post_per_user)) / avg_post_per_user) * 100)
+
         context['my_contrib'] = my_contrib
-        context['avg_post_per_user'] = avg_post_per_user
+        context['avg_post_per_user'] = round(avg_post_per_user, 2)
+        context['percent'] = percent
+        closed_count = Post.objects.filter(user=self.request.user, current_status='Closed').count()
+        open_count = Post.objects.filter(~Q(current_status='Closed'), user=self.request.user).count()
+        context['posts'] = [closed_count,
+                            open_count,
+                            open_count + closed_count]
+        likes_map = {}
+        likes = PostLike.objects.filter(user=self.request.user).all()
+        for like in likes:
+            likes_map[like.post.pk] = like.flag
+        context['likes_map'] = likes_map
         return context
 
 
@@ -51,7 +75,7 @@ class MyTaskView(ListView):
         my_contrib = 0
         avg_post_per_user = 0
         if all_post > 0:
-            my_contrib = (context['length_post'] / all_post) * 100
+            my_contrib = (context['length_post'] / len(User.objects.all()))
             avg_post_per_user = all_post / len(User.objects.all())
         context['my_contrib'] = my_contrib
         context['avg_post_per_user'] = avg_post_per_user

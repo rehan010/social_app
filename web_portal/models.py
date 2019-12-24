@@ -13,6 +13,10 @@ class User(AbstractUser):
     type = models.CharField(max_length=10, choices=TYPE_CHOICES, default='BA')
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
 
+    def get_parent(self):
+        return self.parent
+
+
 
 class Post(models.Model):
     TYPE_CHOICES = (
@@ -32,6 +36,7 @@ class Post(models.Model):
                                       null=True)
     last_actor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='last_actor', default=0, null=True)
     current_status = models.CharField(max_length=10, choices=TYPE_CHOICES, default='Initiated')
+
 
     class Meta:
         db_table = 'post'

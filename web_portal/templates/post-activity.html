@@ -28,6 +28,10 @@
             <p class="card-text">
                 {{post.post_text}}
             </p>
+
+            {% if post.image != '' %}
+            <img style="margin-top: 10px;" src="{{post.image.url}}" alt="" height="250" width="570"/>
+            {% endif %}
         </div>
         <div class="card-footer">
             <a href="javascript:void(0);" class="card-link sentiment" data-post-id={{post.pk}} data-liked="{{liked}}">
@@ -211,6 +215,8 @@ $(document).ready(function(){
         });
     });
 });
+
+
 
 </script>
 {% endblock %}

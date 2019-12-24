@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load post_utils %}
 {% block content %}
 
 <div class="col-md-6 gedf-main">
@@ -114,14 +115,14 @@
                         <a href="{% url 'post-activities' post.pk %}">{{post.post_text}}</a>
                     </p>
                     {% if post.image != '' %}
-                        <img style="margin-top: 10px;" src="{{post.image.url}}" alt="" height="250" width="570"/>
+                    <img style="margin-top: 10px;" src="{{post.image.url}}" alt="" height="250" width="570"/>
                     {% endif %}
                 </div>
                 <div class="card-footer">
                     <a href="javascript:void(0);" class="card-link sentiment" data-post-id={{post.pk}}
-                       data-liked="{{liked}}">
+                       data-liked="{{likes_map|liked:post.pk}}">
                         <i class="fa fa-gittip"></i>
-                        {% if liked == 'true' %}
+                        {% if likes_map|liked:post.pk == 'true' %}
                         Unlike
                         {% else %}
                         Like
@@ -143,7 +144,7 @@
                     </div>
                     <div class="btn-toolbar justify-content-between">
                         <div class="btn-group">
-                            <button type="submit" class="btn btn-primary comment-submit" data-post-id="{{post.pk}}">
+                            <button type="button" class="btn btn-primary comment-submit" data-post-id="{{post.pk}}">
                                 Submit
                             </button>
                         </div>
@@ -158,74 +159,73 @@
 </div>
 
 <div class="col-md-3" style="margin-top: 35px;">
-<div class="element-box el-tablo">
-    <div class="label">
-                              MY ACTIVITY/AVERAGE ACTIVITY
-    </div>
-    <div class="value">
-                              {{my_contrib}}-{{avg_post_per_user}}
-    </div>
-    {%if my_contrib > avg_post_per_user%}
-    <div class="trending trending-up">
-        <span>12%</span><i class="os-icon os-icon-arrow-up2"></i>
-    </div>
-    {%else%}
-    <div class="trending trending-down-basic">
-                              <span>12%</span><i class="os-icon os-icon-arrow-2-down"></i>
-                            </div>
-    {%endif%}
+    <div class="element-box el-tablo">
+        <div class="label">
+            MY ACTIVITY / AVERAGE ACTIVITY
+        </div>
+        <div class="value">
+            {{my_contrib}}/{{avg_post_per_user}}
+        </div>
+        {%if my_contrib >= avg_post_per_user%}
+        <div class="trending trending-up">
+            <span>{{percent}}%</span><i class="os-icon os-icon-arrow-up2"></i>
+        </div>
+        {%else %}
+        <div class="trending trending-down-basic">
+            <span>{{percent}}%</span><i class="os-icon os-icon-arrow-2-down"></i>
+        </div>
+        {%endif%}
 
-</div>
+    </div>
 
-<!--    <div class="element-box el-tablo">-->
-<!--                            <div class="label">-->
-<!--                              AVERAGE POST PER USER-->
-<!--                            </div>-->
-<!--                            <div class="value">-->
-<!--                               {{avg_post_per_user}}-->
-<!--                            </div>-->
-<!--                            <div class="trending trending-down-basic">-->
-<!--                              <span>12%</span><i class="os-icon os-icon-arrow-2-down"></i>-->
-<!--                            </div>-->
-<!--                          </div>-->
+    <!--    <div class="element-box el-tablo">-->
+    <!--                            <div class="label">-->
+    <!--                              AVERAGE POST PER USER-->
+    <!--                            </div>-->
+    <!--                            <div class="value">-->
+    <!--                               {{avg_post_per_user}}-->
+    <!--                            </div>-->
+    <!--                            <div class="trending trending-down-basic">-->
+    <!--                              <span>12%</span><i class="os-icon os-icon-arrow-2-down"></i>-->
+    <!--                            </div>-->
+    <!--                          </div>-->
 
 
     <div class="element-wrapper">
-                    <h6 class="element-header">
-                      Top Selling Today
-                    </h6>
-                    <div class="element-box">
-                      <div class="el-chart-w"><iframe class="chartjs-hidden-iframe" tabindex="-1" style="display: block; overflow: hidden; border: 0px; margin: 0px; top: 0px; left: 0px; bottom: 0px; right: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;"></iframe>
-                        <canvas height="233" id="donutChart" width="233" style="display: block; width: 233px; height: 233px;"></canvas>
-                        <div class="inside-donut-chart-label">
-                          <strong>142</strong><span>Total Orders</span>
-                        </div>
-                      </div>
-                      <div class="el-legend">
-                        <div class="legend-value-w">
-                          <div class="legend-pin" style="background-color: #6896f9;"></div>
-                          <div class="legend-value">
-                            Processed
-                          </div>
-                        </div>
-                        <div class="legend-value-w">
-                          <div class="legend-pin" style="background-color: #85c751;"></div>
-                          <div class="legend-value">
-                            Cancelled
-                          </div>
-                        </div>
-                        <div class="legend-value-w">
-                          <div class="legend-pin" style="background-color: #d97b70;"></div>
-                          <div class="legend-value">
-                            Pending
-                          </div>
-                        </div>
-                      </div>
+        <h6 class="element-header">
+            Posts' Breakdown
+        </h6>
+        {% if posts.2 > 0 %}
+        <div class="element-box">
+            <div class="el-chart-w">
+                <iframe class="chartjs-hidden-iframe" tabindex="-1"
+                        style="display: block; overflow: hidden; border: 0px; margin: 0px; top: 0px; left: 0px; bottom: 0px; right: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;"></iframe>
+                <canvas height="233" id="donutChart" width="233"
+                        style="display: block; width: 233px; height: 233px;"></canvas>
+                <div class="inside-donut-chart-label">
+                    <strong>{{posts.2}}</strong><span>Total Posts</span>
+                </div>
+            </div>
+            <div class="el-legend">
+                <div class="legend-value-w">
+                    <div class="legend-pin" style="background-color: #6896f9;"></div>
+                    <div class="legend-value">
+                        Closed
                     </div>
-                  </div>
+                </div>
+                <div class="legend-value-w">
+                    <div class="legend-pin" style="background-color: #85c751;"></div>
+                    <div class="legend-value">
+                        Open
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        No posts yet!
+        {% endif %}
 
-
-
+    </div>
 </div>
 
 <!-- Modal HTML -->
@@ -271,25 +271,44 @@
 
 {% block extrajs %}
 
-<!--<script src="/static/vendors/jquery/dist/jquery.min.js"></script>-->
-<!--<script src="/static/vendors/datatables/media/js/jquery.dataTables.min.js"></script>-->
-<!--<script src="/static/vendors/moment/moment.js"></script>-->
 <script src="/static/vendors/Chart.js/dist/Chart.min.js"></script>
-<!--<script src="/static/vendors/select2/dist/js/select2.full.min.js"></script>-->
-<!--<script src="/static/vendors/ckeditor/ckeditor.js"></script>-->
-<!--<script src="/static/vendors/bootstrap-validator/dist/validator.min.js"></script>-->
-<!--<script src="/static/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>-->
-<!--<script src="/static/vendors/dropzone/dist/dropzone.js"></script>-->
-<!--<script src="/static/vendors/editable-table/mindmup-editabletable.js"></script>-->
-<!--<script src="/static/vendors/datatables/media/js/dataTables.bootstrap4.min.js"></script>-->
-<!--<script src="/static/vendors/fullcalendar/dist/fullcalendar.min.js"></script>-->
-<script src="/static/vendors/main.js"></script>
-
-
-
 <script>
 
 $(document).ready(function(){
+
+    // init donut chart if element exists
+    if ($("#donutChart").length) {
+      var donutChart = $("#donutChart");
+
+      // donut chart data
+      var data = {
+        labels: ["Open", "Closed"],
+        //labels: ["Red",  "Green"],
+
+        datasets: [{
+          data: [{{posts.0}},{{posts.1}}],
+          backgroundColor: ["#5797fc", "#7e6fff"],
+          hoverBackgroundColor: ["#5797fc", "#7e6fff"],
+          borderWidth: 0
+        }]
+      };
+
+      // init donut chart
+      new Chart(donutChart, {
+        type: 'doughnut',
+        data: data,
+        options: {
+          legend: {
+            display: false
+          },
+          animation: {
+            animateScale: true
+          },
+          cutoutPercentage: 80
+        }
+      });
+    }
+
 
     function readURL(input) {
         if (input.files && input.files[0]) {
@@ -410,6 +429,13 @@ $(document).ready(function(){
         });
     });
 });
+
+
+
+
+
+
+
 
 
 

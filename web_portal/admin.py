@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import User
-from .models import User , Post ,Comment,PostLike,CommentLike
+from .models import User , Post ,Comment,PostLike,CommentLike , WorkflowLog
 
 # Register your models here.
 admin.site.site_header = 'Social Network admin'
@@ -24,11 +24,14 @@ class CommentAdmin(admin.ModelAdmin):
 class CommentLikeAdmin(admin.ModelAdmin):
     list_display = ('user','comment','flag','created_at', 'updated_at')
 
+class WorkflowLogAdmin(admin.ModelAdmin):
+    list_display = ('user','post','status','created_at', 'updated_at')
 
 
 admin.site.register(Post,PostAdmin)
 admin.site.register(PostLike,PostLikeAdmin)
 admin.site.register(Comment,CommentAdmin)
 admin.site.register(CommentLike,CommentLikeAdmin)
+admin.site.register(WorkflowLog,WorkflowLogAdmin)
 admin.site.register(User,UserAdmin)
 
