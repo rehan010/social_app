@@ -244,6 +244,7 @@
 
 
 
+
 </style>
 <!--<div class="col-md-3">-->
 <!--<div class="card">
@@ -272,7 +273,7 @@
                 </div>
                 <span>My Posts</span>
                 {% if length_post > 0%}
-                    <label style="font-size: x-small; font-weight: bold; color:red; margin-top:10px;">{{length_post}}</label>
+                <label style="font-size: x-small; font-weight: bold; color:red; margin-top:10px;">{{length_post}}</label>
                 {% endif %}
             </a>
         </li>
@@ -283,10 +284,19 @@
                 </div>
                 <span>My Tasks</span>
                 {% if length_task > 0%}
-                    <label style="font-size: x-small; font-weight: bold; color:red; margin-top:10px;">{{length_task}}</label>
+                <label style="font-size: x-small; font-weight: bold; color:red; margin-top:10px;">{{length_task}}</label>
                 {% endif %}
             </a>
         </li>
+        {% if request.user.parent is None %}
+        <li>
+            <a href="{% url 'stats' %}">
+                <div class="icon-w">
+                    <div class="os-icon os-icon-donut-chart-2"></div>
+                </div>
+                <span>Statistics</span></a>
+        </li>
+        {% endif %}
         <li>
             <a href="{% url 'logout' %}">
                 <div class="icon-w">

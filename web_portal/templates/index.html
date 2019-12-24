@@ -208,13 +208,13 @@
             </div>
             <div class="el-legend">
                 <div class="legend-value-w">
-                    <div class="legend-pin" style="background-color: #6896f9;"></div>
+                    <div class="legend-pin" style="background-color: #85c751;"></div>
                     <div class="legend-value">
                         Closed
                     </div>
                 </div>
                 <div class="legend-value-w">
-                    <div class="legend-pin" style="background-color: #85c751;"></div>
+                    <div class="legend-pin" style="background-color: #6896f9;"></div>
                     <div class="legend-value">
                         Open
                     </div>
@@ -283,12 +283,11 @@ $(document).ready(function(){
       // donut chart data
       var data = {
         labels: ["Open", "Closed"],
-        //labels: ["Red",  "Green"],
 
         datasets: [{
           data: [{{posts.1}},{{posts.0}}],
-          backgroundColor: ["#5797fc", "#7e6fff"],
-          hoverBackgroundColor: ["#5797fc", "#7e6fff"],
+          backgroundColor: ["#6896f9","#85c751" ],
+          hoverBackgroundColor: ["#6896f9","#85c751" ],
           borderWidth: 0
         }]
       };

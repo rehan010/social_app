@@ -1,14 +1,15 @@
 from .forms import SignUpForm
 from django.urls import reverse_lazy
 from django.shortcuts import HttpResponse
-from django.views.generic import ListView, CreateView, DetailView
+from django.views.generic import ListView, CreateView, DetailView, TemplateView
 from .models import *
 import json
 from django.contrib.auth.mixins import LoginRequiredMixin
 import time
 from easy_cression import settings
-from django.shortcuts import redirect, render
 from django.db.models import Q
+from django.db.models import Count
+from datetime import datetime
 
 
 # Create your views here.
@@ -117,10 +118,33 @@ class PostActivityView(DetailView):
         context['post'] = post
         context['comments'] = Comment.objects.filter(post=post).order_by('-created_at').all()
         like = PostLike.objects.filter(post=post, user=self.request.user).first()
-        if like is None or like.flag:
+        if like is not None:
             context['liked'] = 'true'
         else:
             context['liked'] = 'false'
+        return context
+
+
+class StatsView(TemplateView):
+    template_name = 'stats.html'
+    model = Post
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        qs = (Post.objects.all().
+              extra(select={
+                'day': "EXTRACT(day FROM created_at)"
+              }).
+              values('day').
+              annotate(count_items=Count('created_at')))
+        qs = qs.filter(created_at__month=datetime.now().month).order_by('created_at')
+        context['day_wise_posts'] = qs.all()
+        qs = (Post.objects.all().
+              values('user').
+              annotate(count_items=Count('pk')))
+        qs = qs.filter(created_at__month=datetime.now().month).order_by('-count_items')
+        top5 = qs.all()[:5]
+        context['top_performers'] = top5.all()
         return context
 
 
@@ -192,12 +216,17 @@ def post_sentiment(request):
     if request.method == 'POST':
         user = request.user
         liked = request.POST.get('liked')
-        flag = True;
+        flag = True
         if liked == 'true':
             flag = False
         post = Post.objects.get(pk=request.POST.get('post_id'))
-        post_like = PostLike(user=user, flag=flag, post=post)
-        post_like.save()
+        post_like = PostLike.objects.filter(user=user, post=post)
+        if post_like.exists():
+            post_like.update(flag=flag)
+        else:
+            post_like = PostLike(user=user, post=post, flag=True)
+            post_like.save()
+
         response_data = {'result': 'Like posted successfully!'}
 
         return HttpResponse(
