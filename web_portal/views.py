@@ -138,7 +138,7 @@ class StatsView(TemplateView):
               values('day').
               annotate(count_items=Count('created_at')))
         # qs = qs.order_by('created_at')
-        context['day_wise_posts'] = qs
+        context['day_wise_posts'] = qs.order_by('created_at__day')
         qs = (Post.objects.all().
               values('user').
               annotate(count_items=Count('pk')))
