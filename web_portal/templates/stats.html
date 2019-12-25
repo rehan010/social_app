@@ -9,7 +9,7 @@
                 <div class="col-sm-12">
                   <div class="element-wrapper">
                     <h6 class="element-header">
-                      Bar Chart
+                      Top Performers
                     </h6>
                     <div class="element-box">
                       <div class="el-chart-w">
@@ -21,13 +21,14 @@
               </div>
             </div>
         </div>
+
     <div class="content-i col-sm-4">
             <div class="content">
               <div class="row">
                 <div class="col-sm-12">
                   <div class="element-wrapper">
                     <h6 class="element-header">
-                      Line Chart
+                      Day Wise Stats
                     </h6>
                     <div class="element-box">
                       <div class="el-chart-w">
@@ -54,13 +55,13 @@ $(document).ready(function(){
 if ($("#barChart1").length) {
       var barChart1 = $("#barChart1");
       var barData1 = {
-        labels: ["January", "February", "March", "April", "May", "June"],
+        labels: [{{top_performers.0.user}}, {{top_performers.1.user}}, {{top_performers.2.user}}, {{top_performers.3.user}}, {{top_performers.4.user}}],
         datasets: [{
-          label: "My First dataset",
+          label: "Top performer",
           backgroundColor: ["#5797FC", "#629FFF", "#6BA4FE", "#74AAFF", "#7AAEFF", '#85B4FF'],
           borderColor: ['rgba(255,99,132,0)', 'rgba(54, 162, 235, 0)', 'rgba(255, 206, 86, 0)', 'rgba(75, 192, 192, 0)', 'rgba(153, 102, 255, 0)', 'rgba(255, 159, 64, 0)'],
           borderWidth: 1,
-          data: [24, 42, 18, 34, 56, 28]
+          data: [{{top_performers.0.count_items}}, {{top_performers.1.count_items}}, {{top_performers.2.count_items}}, {{top_performers.3.count_items}}, {{top_performers.4.count_items}}]
         }]
       };
       // init bar chart
@@ -104,9 +105,9 @@ if ($("#barChart1").length) {
 
       // line chart data
       var lineData = {
-        labels: ["1", "5", "10", "15", "20", "25", "30", "35"],
+        labels: [{{day_wise_posts.0.day}}, {{day_wise_posts.1.day}}, {{day_wise_posts.2.day}}, {{day_wise_posts.3.day}}, {{day_wise_posts.4.day}}, {{day_wise_posts.5.day}}, {{day_wise_posts.6.day}}, {{day_wise_posts.7.day}}],
         datasets: [{
-          label: "Visitors Graph",
+          label: "No. of Posts",
           fill: false,
           lineTension: 0,
           backgroundColor: "#fff",
@@ -124,7 +125,7 @@ if ($("#barChart1").length) {
           pointHoverBorderWidth: 3,
           pointRadius: 6,
           pointHitRadius: 10,
-          data: [27, 20, 44, 24, 29, 22, 43, 52],
+          data: [{{day_wise_posts.0.count_items}},{{day_wise_posts.1.count_items}} , {{day_wise_posts.2.count_items}}, {{day_wise_posts.3.count_items}}, {{day_wise_posts.4.count_items}}, {{day_wise_posts.5.count_items}}, {{day_wise_posts.6.count_items}},{{day_wise_posts.7.count_items}}],
           spanGaps: false
         }]
       };

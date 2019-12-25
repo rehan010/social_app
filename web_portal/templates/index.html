@@ -242,7 +242,7 @@
                 <p class="text-center">Your post is created and sent for moderation.</p>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+                <button class="btn btn-success btn-block" id="close" data-dismiss="modal">OK</button>
             </div>
         </div>
     </div>
@@ -260,7 +260,7 @@
                 <p class="text-center">Your comment is posted.</p>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+                <button class="btn btn-success btn-block" data-dismiss="modal" id="close_comment">OK</button>
             </div>
         </div>
     </div>
@@ -275,6 +275,7 @@
 <script>
 
 $(document).ready(function(){
+
 
     // init donut chart if element exists
     if ($("#donutChart").length) {
@@ -346,7 +347,7 @@ $(document).ready(function(){
                 $('#success').fadeOut(5000);
                 $('#modal-success-2').modal();
                 $('#blah').attr('src', '#');
-                window.reload();
+
             },
 
             // handle a non-successful response
@@ -356,6 +357,12 @@ $(document).ready(function(){
             }
         });
 
+    });
+    $("#close").click(function(){
+    location.reload();
+    });
+    $("#close_comment").click(function(){
+    location.reload();
     });
 
     $(".sentiment").click(function(){
