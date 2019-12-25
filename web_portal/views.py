@@ -103,6 +103,7 @@ class PostDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         post = Post.objects.filter(pk=self.kwargs['pk']).first()
+        context['comments'] = Comment.objects.filter(post=post).order_by('-created_at').all()
         context['post'] = post
         context['logs'] = WorkflowLog.objects.filter(post=post).all()
         return context
