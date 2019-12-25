@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-
-      <div class="content-i col-sm-4">
+<div class="content-i col-sm-8">
             <div class="content">
               <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-6">
+
+
                   <div class="element-wrapper">
                     <h6 class="element-header">
                       Top Performers
@@ -18,14 +18,10 @@
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-        </div>
+                <div class="col-sm-6">
 
-    <div class="content-i col-sm-4">
-            <div class="content">
-              <div class="row">
-                <div class="col-sm-12">
+
+
                   <div class="element-wrapper">
                     <h6 class="element-header">
                       Day Wise Stats
@@ -39,6 +35,39 @@
                 </div>
               </div>
             </div>
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="element-box">
+            <div class="el-chart-w">
+                <iframe class="chartjs-hidden-iframe" tabindex="-1"
+                        style="display: block; overflow: hidden; border: 0px; margin: 0px; top: 0px; left: 0px; bottom: 0px; right: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;"></iframe>
+                <canvas height="233" id="donutChart" width="233"
+                        style="display: block; width: 233px; height: 233px;"></canvas>
+                <div class="inside-donut-chart-label">
+                    <strong>{{total_posts}}</strong><span>Total Posts</span>
+                </div>
+            </div>
+            <div class="el-legend">
+                <div class="legend-value-w">
+                    <div class="legend-pin" style="background-color: #85c751;"></div>
+                    <div class="legend-value">
+                        Closed
+                    </div>
+                </div>
+                <div class="legend-value-w">
+                    <div class="legend-pin" style="background-color: #6896f9;"></div>
+                    <div class="legend-value">
+                        Open
+                    </div>
+                </div>
+            </div>
+        </div>
+                </div>
+
+              </div>
+            </div>
+
         </div>
 
 
@@ -51,6 +80,37 @@
 <script src="/static/vendors/Chart.js/dist/Chart.min.js"></script>
 <script>
 $(document).ready(function(){
+
+if ($("#donutChart").length) {
+      var donutChart = $("#donutChart");
+
+      // donut chart data
+      var data = {
+        labels: ["Open", "Closed"],
+
+        datasets: [{
+          data: [{{post_data.0}},{{post_data.1}}],
+          backgroundColor: ["#6896f9","#85c751" ],
+          hoverBackgroundColor: ["#6896f9","#85c751" ],
+          borderWidth: 0
+        }]
+      };
+
+      // init donut chart
+      new Chart(donutChart, {
+        type: 'doughnut',
+        data: data,
+        options: {
+          legend: {
+            display: false
+          },
+          animation: {
+            animateScale: true
+          },
+          cutoutPercentage: 80
+        }
+      });
+    }
 
 if ($("#barChart1").length) {
       var barChart1 = $("#barChart1");

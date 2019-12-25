@@ -145,6 +145,11 @@ class StatsView(TemplateView):
         qs = qs.filter(created_at__month=datetime.now().month).order_by('-count_items')
         top5 = qs.all()[:5]
         context['top_performers'] = top5.all()
+        context['total_posts']=len(Post.objects.all())
+        closed_count = Post.objects.filter(current_status='Closed').count()
+        open_count = Post.objects.filter(~Q(current_status='Closed')).count()
+        context['post_data']=[open_count,closed_count]
+
         return context
 
 
