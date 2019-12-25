@@ -123,6 +123,8 @@ class PostActivityView(DetailView):
         else:
             context['liked'] = 'false'
         return context
+class AnalysisView(TemplateView):
+    template_name = 'analytics.html'
 
 
 class StatsView(TemplateView):

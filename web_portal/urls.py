@@ -26,6 +26,7 @@ urlpatterns = [
     path('approve/', approve_post, name="approve"),
     path('correct/', correct_post, name="correct"),
     path('stats/', StatsView.as_view(), name="stats"),
+    path('analytics/', AnalysisView.as_view(), name="analysis"),
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
