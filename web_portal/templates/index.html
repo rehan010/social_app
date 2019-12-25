@@ -5,7 +5,7 @@
 
 <div class="col-md-6 gedf-main">
     <label>
-        <strong>Welcome to Socio Smollan!</strong>
+        <strong>Hello {{user}}! Welcome to Socio Smollan!</strong>
     </label>
     <br/>
     <div id="success" class="alert alert-success" role="alert" style="display: none;">
@@ -167,28 +167,20 @@
             {{my_contrib}}/{{avg_post_per_user}}
         </div>
         {%if my_contrib >= avg_post_per_user%}
-        <div class="trending trending-up">
+        <div class="trending trending">
             <span>{{percent}}%</span><i class="os-icon os-icon-arrow-up2"></i>
         </div>
-        {%else %}
+        {%elif my_contrib == 0%}
+
+
+
+        {%else  %}
         <div class="trending trending-down-basic">
             <span>{{percent}}%</span><i class="os-icon os-icon-arrow-2-down"></i>
         </div>
         {%endif%}
 
     </div>
-
-    <!--    <div class="element-box el-tablo">-->
-    <!--                            <div class="label">-->
-    <!--                              AVERAGE POST PER USER-->
-    <!--                            </div>-->
-    <!--                            <div class="value">-->
-    <!--                               {{avg_post_per_user}}-->
-    <!--                            </div>-->
-    <!--                            <div class="trending trending-down-basic">-->
-    <!--                              <span>12%</span><i class="os-icon os-icon-arrow-2-down"></i>-->
-    <!--                            </div>-->
-    <!--                          </div>-->
 
 
     <div class="element-wrapper">
@@ -327,8 +319,15 @@ $(document).ready(function(){
     });
 
     $('#create_post').click(function(){
+
+
         var data=new FormData();
         var msg=document.getElementById("message").value;
+        if (msg=='' || img==''){
+
+        return;
+        }
+
         data.append('message',msg );
         data.append('csrfmiddlewaretoken',  '{{ csrf_token }}');
         data.append('image',image);
@@ -408,8 +407,9 @@ $(document).ready(function(){
     $('.comment-submit').click(function(){
         var postId = $(this).attr('data-post-id');
         var comments = $('#comment-' + postId).val();
-        if (comments == null)
+        if (comments == null||comments ==''){
             return;
+            }
         var data = {
             'comments': comments,
             'csrfmiddlewaretoken':  '{{ csrf_token }}',
