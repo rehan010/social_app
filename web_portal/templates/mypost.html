@@ -34,7 +34,7 @@
                 <a href="{% url 'post-details' post.pk %}">{{post.post_text}}</a>
             </p>
             {% if post.image != '' %}
-                        <img style="margin-top: 10px;" src="{{post.image.url}}" alt="" height="250" width="570"/>
+                        <img style="margin-top: 10px;" src="{{post.image.url}}" alt="" height="100%" width="100%"/>
                     {% endif %}
         </div>
         <div class="card-footer" style="display: none;">
