@@ -137,8 +137,8 @@ class StatsView(TemplateView):
               }).
               values('day').
               annotate(count_items=Count('created_at')))
-        qs = qs.filter(created_at__month=datetime.now().month).order_by('created_at')
-        context['day_wise_posts'] = qs.all()
+        # qs = qs.order_by('created_at')
+        context['day_wise_posts'] = qs
         qs = (Post.objects.all().
               values('user').
               annotate(count_items=Count('pk')))
