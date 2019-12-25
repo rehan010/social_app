@@ -8,7 +8,8 @@ class User(AbstractUser):
         ('1', 'BA'),
         ('2', 'Sup'),
         ('3', 'Man'),
-        ('4', 'Exec')
+        ('4', 'Exec'),
+        ('5', 'Client')
     )
     type = models.CharField(max_length=10, choices=TYPE_CHOICES, default='BA')
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)

@@ -5,39 +5,6 @@
             <div class="content">
               <div class="row">
                 <div class="col-sm-6">
-
-
-                  <div class="element-wrapper">
-                    <h6 class="element-header">
-                      Top Performers
-                    </h6>
-                    <div class="element-box">
-                      <div class="el-chart-w">
-                        <canvas height="145" id="barChart1" width="300"></canvas>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-
-
-
-                  <div class="element-wrapper">
-                    <h6 class="element-header">
-                      Day Wise Stats
-                    </h6>
-                    <div class="element-box">
-                      <div class="el-chart-w">
-                        <canvas height="145" id="lineChart" width="300"></canvas>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-              <div class="row">
-                <div class="col-sm-6">
                   <div class="element-wrapper">
                     <h6 class="element-header">
                       Posts' Stats
@@ -46,7 +13,7 @@
             <div class="el-chart-w">
                 <iframe class="chartjs-hidden-iframe" tabindex="-1"
                         style="display: block; overflow: hidden; border: 0px; margin: 0px; top: 0px; left: 0px; bottom: 0px; right: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;"></iframe>
-                <canvas height="233" id="donutChart" width="233"
+                <canvas height="200" id="donutChart" width="200"
                         style="display: block; width: 233px; height: 233px;"></canvas>
                 <div class="inside-donut-chart-label">
                     <strong>{{total_posts}}</strong><span>Total Posts</span>
@@ -65,14 +32,92 @@
                         Open
                     </div>
                 </div>
-            </div></div>
-        </div>
+            </div>
+
+
+
+
+                  </div>
+                  </div>
                 </div>
+                <div class="col-sm-6">
+
+
+                  <div class="element-wrapper">
+                    <h6 class="element-header">
+                      Top Performers
+                    </h6>
+                    <div class="element-box">
+                      <div class="el-chart-w">
+                        <canvas height="400" id="barChart1" width="300"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
 
               </div>
             </div>
 
-        </div>
+              <div class="row">
+                <div class="col-sm-12">
+
+
+
+                  <div class="element-wrapper">
+                    <h6 class="element-header">
+                      Day Wise Stats
+                    </h6>
+                    <div class="element-box">
+                      <div class="el-chart-w">
+                        <canvas height="145" id="lineChart" width="300"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="col-sm-12">
+
+
+
+                  <div class="element-wrapper">
+                    <h6 class="element-header">
+                      TOTAL BA's Stats
+                    </h6>
+                    <div class="element-box">
+
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Likes</th>
+            <th scope="col">Comments</th>
+            <th scope="col">Posts</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for log in table_data %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{log.user}}</td>
+            <td>{{log.count_post}}</td>
+            <td>{{log.count_comment}}</td>
+            <td>{{log.count_like}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+    </div>
+</div>
 
 
 
@@ -119,7 +164,7 @@ if ($("#donutChart").length) {
 if ($("#barChart1").length) {
       var barChart1 = $("#barChart1");
       var barData1 = {
-        labels: [{{top_performers.0.user}}, {{top_performers.1.user}}, {{top_performers.2.user}}, {{top_performers.3.user}}, {{top_performers.4.user}}],
+        labels: ["{{top_performers.0.user__username}}", "{{top_performers.1.user__username}}", "{{top_performers.2.user__username}}", "{{top_performers.3.user__username}}", "{{top_performers.4.user__username}}"],
         datasets: [{
           label: "Top performer",
           backgroundColor: ["#5797FC", "#629FFF", "#6BA4FE", "#74AAFF", "#7AAEFF", '#85B4FF'],

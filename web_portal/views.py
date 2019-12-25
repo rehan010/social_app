@@ -140,7 +140,7 @@ class StatsView(TemplateView):
         # qs = qs.order_by('created_at')
         context['day_wise_posts'] = qs.order_by('created_at__day')
         qs = (Post.objects.all().
-              values('user').
+              values('user__username').
               annotate(count_items=Count('pk')))
         qs = qs.filter(created_at__month=datetime.now().month).order_by('-count_items')
         top5 = qs.all()[:5]
@@ -149,7 +149,15 @@ class StatsView(TemplateView):
         closed_count = Post.objects.filter(current_status='Closed').count()
         open_count = Post.objects.filter(~Q(current_status='Closed')).count()
         context['post_data']=[open_count,closed_count]
-
+        user=User.objects.all().filter(type="1")
+        table_data=[]
+        for _ in user:
+            count_post=Post.objects.all().filter(user__pk=_.pk).count()
+            count_comment=Comment.objects.all().filter(user__pk=_.pk).count()
+            count_like=PostLike.objects.all().filter(user__pk=_.pk).count()+CommentLike.objects.all().filter(user__pk=_.pk).count()
+            table={"user":_.username,"count_post":count_post,"count_comment":count_comment,"count_like":count_like}
+            table_data.append(table)
+        context["table_data"]=table_data
         return context
 
 
