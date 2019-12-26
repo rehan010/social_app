@@ -14,7 +14,6 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from django.contrib.auth.decorators import login_required
 
-
 # Create your views here.
 class SignUpView(CreateView):
     form_class = SignUpForm

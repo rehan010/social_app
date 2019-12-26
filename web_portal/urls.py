@@ -16,7 +16,7 @@ urlpatterns = [
     path('myposts/', MyPostView.as_view(), name="myposts"),
     path('mytasks/', MyTaskView.as_view(), name="mytasks"),
     path('public_posts/', PublicPostView.as_view(), name="public_posts"),
-    path('/', auth_views.LoginView.as_view(redirect_authenticated_user=True, template_name='login_new.html')),
+    path('', PublicPostView.as_view(), name="home"),
     path('posts/', create_post, name="create_post"),
     path('comments/', post_comment, name="post_comment"),
     path('sentiment/', post_sentiment, name="post_sentiment"),
