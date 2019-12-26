@@ -12,6 +12,8 @@ from django.db.models import Count
 from datetime import datetime
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 class SignUpView(CreateView):
@@ -27,7 +29,8 @@ class SignUpView(CreateView):
         return context
 
 
-class PublicPostView(ListView, LoginRequiredMixin):
+class PublicPostView(LoginRequiredMixin, ListView):
+    login_url = '/login/'
     template_name = 'index.html'
     model = User
 
@@ -64,7 +67,8 @@ class PublicPostView(ListView, LoginRequiredMixin):
         return context
 
 
-class MyTaskView(ListView):
+class MyTaskView(LoginRequiredMixin, ListView):
+    login_url = '/login/'
     template_name = 'mytask.html'
     model = User
 
@@ -85,7 +89,8 @@ class MyTaskView(ListView):
         return context
 
 
-class MyPostView(ListView):
+class MyPostView(LoginRequiredMixin, ListView):
+    login_url = '/login/'
     template_name = 'mypost.html'
     model = User
 
@@ -97,7 +102,8 @@ class MyPostView(ListView):
         return context
 
 
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin, DetailView):
+    login_url = '/login/'
     template_name = 'post-detail.html'
     model = Post
 
@@ -110,7 +116,8 @@ class PostDetailView(DetailView):
         return context
 
 
-class PostActivityView(DetailView):
+class PostActivityView(LoginRequiredMixin, DetailView):
+    login_url = '/login/'
     template_name = 'post-activity.html'
     model = Post
 
@@ -125,25 +132,26 @@ class PostActivityView(DetailView):
         else:
             context['liked'] = 'false'
         return context
-class AnalysisView(TemplateView):
+
+
+class AnalysisView(LoginRequiredMixin, TemplateView):
+    login_url = '/login/'
     template_name = 'analytics.html'
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        qs=Comment.objects.all()
-        my_text=""
+        qs = Comment.objects.all()
+        my_text = ""
         for text in qs:
-            my_text+=text.comments_text+' '
+            my_text += text.comments_text + ' '
         stop_words = set(stopwords.words('english'))
 
         word_tokens = word_tokenize(my_text)
 
         filtered_sentence = [w for w in word_tokens if not w in stop_words]
-        comment_text=listToString(filtered_sentence)
+        comment_text = listToString(filtered_sentence)
 
-
-
-        context['comment_text']=comment_text
+        context['comment_text'] = comment_text
 
         return context
 
@@ -154,13 +162,14 @@ def listToString(s):
 
     # traverse in the string
     for ele in s:
-        str1 += ele+" "
+        str1 += ele + " "
 
     # return string
     return str1
 
 
-class StatsView(TemplateView):
+class StatsView(LoginRequiredMixin, TemplateView):
+    login_url = '/login/'
     template_name = 'stats.html'
     model = Post
 
@@ -168,8 +177,8 @@ class StatsView(TemplateView):
         context = super().get_context_data(*args, **kwargs)
         qs = (Post.objects.all().
               extra(select={
-                'day': "EXTRACT(day FROM created_at)"
-              }).
+            'day': "EXTRACT(day FROM created_at)"
+        }).
               values('day').
               annotate(count_items=Count('created_at')))
         # qs = qs.order_by('created_at')
@@ -180,19 +189,21 @@ class StatsView(TemplateView):
         qs = qs.filter(created_at__month=datetime.now().month).order_by('-count_items')
         top5 = qs.all()[:5]
         context['top_performers'] = top5.all()
-        context['total_posts']=len(Post.objects.all())
+        context['total_posts'] = len(Post.objects.all())
         closed_count = Post.objects.filter(current_status='Closed').count()
         open_count = Post.objects.filter(~Q(current_status='Closed')).count()
-        context['post_data']=[open_count,closed_count]
-        user=User.objects.all()
-        table_data=[]
+        context['post_data'] = [open_count, closed_count]
+        user = User.objects.all()
+        table_data = []
         for _ in user:
-            count_post=Post.objects.all().filter(user__pk=_.pk).count()
-            count_comment=Comment.objects.all().filter(user__pk=_.pk).count()
-            count_like=PostLike.objects.all().filter(user__pk=_.pk).count()+CommentLike.objects.all().filter(user__pk=_.pk).count()
-            table={"user":_.username,"count_post":count_post,"count_comment":count_comment,"count_like":count_like}
+            count_post = Post.objects.all().filter(user__pk=_.pk).count()
+            count_comment = Comment.objects.all().filter(user__pk=_.pk).count()
+            count_like = PostLike.objects.all().filter(user__pk=_.pk).count() + CommentLike.objects.all().filter(
+                user__pk=_.pk).count()
+            table = {"user": _.username, "count_post": count_post, "count_comment": count_comment,
+                     "count_like": count_like}
             table_data.append(table)
-        context["table_data"]=table_data
+        context["table_data"] = table_data
         return context
 
 
@@ -201,7 +212,7 @@ def handle_uploaded_file(f, path):
         for chunk in f.chunks():
             destination.write(chunk)
 
-
+@login_required(login_url='/login/')
 def create_post(request):
     if request.method == 'POST':
         try:
@@ -245,6 +256,7 @@ def create_post(request):
         )
 
 
+@login_required(login_url='/login/')
 def post_comment(request):
     if request.method == 'POST':
         user = request.user
@@ -260,6 +272,7 @@ def post_comment(request):
         )
 
 
+@login_required(login_url='/login/')
 def post_sentiment(request):
     if request.method == 'POST':
         user = request.user
@@ -283,6 +296,7 @@ def post_sentiment(request):
         )
 
 
+@login_required(login_url='/login/')
 def approve_post(request):
     if request.method == 'POST':
         user = request.user
@@ -309,6 +323,7 @@ def approve_post(request):
         )
 
 
+@login_required(login_url='/login/')
 def reject_post(request):
     if request.method == 'POST':
         user = request.user
@@ -330,6 +345,7 @@ def reject_post(request):
         )
 
 
+@login_required(login_url='/login/')
 def correct_post(request):
     if request.method == 'POST':
         user = request.user
