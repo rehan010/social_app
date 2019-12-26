@@ -10,7 +10,8 @@ from easy_cression import settings
 from django.db.models import Q
 from django.db.models import Count
 from datetime import datetime
-
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
 
 # Create your views here.
 class SignUpView(CreateView):
@@ -103,7 +104,7 @@ class PostDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         post = Post.objects.filter(pk=self.kwargs['pk']).first()
-        context['comments'] = Comment.objects.filter(post=post).order_by('-created_at').all()
+        # context['comments'] = Comment.objects.filter(post=post).order_by('-created_at').all()
         context['post'] = post
         context['logs'] = WorkflowLog.objects.filter(post=post).all()
         return context
@@ -126,6 +127,37 @@ class PostActivityView(DetailView):
         return context
 class AnalysisView(TemplateView):
     template_name = 'analytics.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        qs=Comment.objects.all()
+        my_text=""
+        for text in qs:
+            my_text+=text.comments_text+' '
+        stop_words = set(stopwords.words('english'))
+
+        word_tokens = word_tokenize(my_text)
+
+        filtered_sentence = [w for w in word_tokens if not w in stop_words]
+        comment_text=listToString(filtered_sentence)
+
+
+
+        context['comment_text']=comment_text
+
+        return context
+
+
+def listToString(s):
+    # initialize an empty string
+    str1 = ""
+
+    # traverse in the string
+    for ele in s:
+        str1 += ele+" "
+
+    # return string
+    return str1
 
 
 class StatsView(TemplateView):
@@ -152,7 +184,7 @@ class StatsView(TemplateView):
         closed_count = Post.objects.filter(current_status='Closed').count()
         open_count = Post.objects.filter(~Q(current_status='Closed')).count()
         context['post_data']=[open_count,closed_count]
-        user=User.objects.all().filter(type="1")
+        user=User.objects.all()
         table_data=[]
         for _ in user:
             count_post=Post.objects.all().filter(user__pk=_.pk).count()
