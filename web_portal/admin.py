@@ -57,7 +57,7 @@ class UserAdmin(BaseUserAdmin):
     add_form = UserCreationForm
     form = UserChangeForm
 
-    list_display = ('username','first_name','email','parent')
+    list_display = ('username','first_name','email','parent','type')
 class PostAdmin(admin.ModelAdmin):
     list_display = ('user','post_text', 'created_at', 'updated_at')
 
